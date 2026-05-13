@@ -33,6 +33,9 @@ export class AppHeaderComponent {
     { path: '/inputs', label: 'Inputs' },
     { path: '/menus', label: 'Menus' },
     { path: '/dialog', label: 'Dialog' },
+    { path: '/loader', label: 'Loader' },
+    { path: '/table', label: 'Table' },
+    { path: '/notifications', label: 'Notifications' },
     { path: '/typography', label: 'Typography' },
   ];
 }

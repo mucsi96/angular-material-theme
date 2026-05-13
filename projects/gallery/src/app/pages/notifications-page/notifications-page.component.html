@@ -1,0 +1,47 @@
+<amt-gallery-page-header
+  title="Notifications"
+  subtitle="Snackbar toasts and inline notification panels with success/error variants."
+/>
+
+<amt-gallery-demo-section
+  title="Snackbar"
+  description="Triggered via the NotificationsService — a thin wrapper that applies the success/error panel classes."
+>
+  <button mat-flat-button color="primary" (click)="success()">
+    <mat-icon class="material-symbols-rounded">check_circle</mat-icon>
+    Show success
+  </button>
+  <button mat-flat-button color="warn" (click)="error()">
+    <mat-icon class="material-symbols-rounded">error</mat-icon>
+    Show error
+  </button>
+</amt-gallery-demo-section>
+
+<amt-gallery-demo-section
+  title="Inline notifications"
+  description="Render alongside content when a toast feels too ephemeral."
+>
+  <div class="notifications">
+    <output class="amt-notification amt-notification--success">
+      <mat-icon class="material-symbols-rounded">check_circle</mat-icon>
+      <div>
+        <strong>Saved.</strong>
+        Your changes are now live for your teammates.
+      </div>
+    </output>
+    <output class="amt-notification amt-notification--error">
+      <mat-icon class="material-symbols-rounded">error</mat-icon>
+      <div>
+        <strong>Something went wrong.</strong>
+        We couldn't reach the server. Check your connection and retry.
+      </div>
+    </output>
+    <output class="amt-notification">
+      <mat-icon class="material-symbols-rounded">info</mat-icon>
+      <div>
+        <strong>Heads up.</strong>
+        A new theme version is available — pull to update.
+      </div>
+    </output>
+  </div>
+</amt-gallery-demo-section>

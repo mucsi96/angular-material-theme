@@ -63,6 +63,24 @@ export class OverviewPageComponent {
       icon: 'open_in_new',
     },
     {
+      path: '/loader',
+      label: 'Loader',
+      description: 'Signature 5-bar loader plus themed Material progress.',
+      icon: 'progress_activity',
+    },
+    {
+      path: '/table',
+      label: 'Table',
+      description: 'Sortable, selectable Material table with status badges.',
+      icon: 'table_chart',
+    },
+    {
+      path: '/notifications',
+      label: 'Notifications',
+      description: 'Snackbar toasts and inline success / error panels.',
+      icon: 'notifications',
+    },
+    {
       path: '/typography',
       label: 'Typography',
       description: 'Headings, body text, and the type ramp.',

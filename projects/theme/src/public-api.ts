@@ -7,3 +7,5 @@
  * exported below for convenience.
  */
 export * from './lib/theme.providers';
+export * from './lib/bar-loader/bar-loader.component';
+export * from './lib/notifications/notifications.service';

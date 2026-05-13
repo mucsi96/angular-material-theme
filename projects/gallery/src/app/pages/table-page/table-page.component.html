@@ -1,0 +1,72 @@
+<amt-gallery-page-header
+  title="Table"
+  subtitle="Material table with sortable headers, selectable rows and row actions."
+/>
+
+<amt-gallery-demo-section
+  title="Projects"
+  description="Click a row to select it. Click a column header to sort."
+>
+  <div class="table-wrapper">
+    <table
+      mat-table
+      matSort
+      [dataSource]="rows()"
+      (matSortChange)="sortBy($event)"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Project</th>
+        <td mat-cell *matCellDef="let row">
+          <strong>{{ row.name }}</strong>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
+        <td mat-cell *matCellDef="let row">{{ row.owner }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="badge" [attr.data-status]="row.status">{{ row.status }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="updated">
+        <th mat-header-cell *matHeaderCellDef>Last update</th>
+        <td mat-cell *matCellDef="let row">{{ row.updated }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="issues">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">
+          Issues
+        </th>
+        <td mat-cell *matCellDef="let row" class="num">{{ row.issues }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-cell"></th>
+        <td mat-cell *matCellDef="let row" class="actions-cell">
+          <button mat-icon-button aria-label="Open project">
+            <mat-icon class="material-symbols-rounded">open_in_new</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: columns"
+        [attr.aria-selected]="row === selectedRow()"
+        (click)="select(row)"
+      ></tr>
+    </table>
+  </div>
+
+  @if (selectedRow(); as row) {
+    <p class="selection-note">
+      Selected: <strong>{{ row.name }}</strong>
+    </p>
+  }
+</amt-gallery-demo-section>

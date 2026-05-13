@@ -44,5 +44,26 @@ export const routes: Routes = [
         (m) => m.TypographyPageComponent,
       ),
   },
+  {
+    path: 'loader',
+    loadComponent: () =>
+      import('./pages/loader-page/loader-page.component').then(
+        (m) => m.LoaderPageComponent,
+      ),
+  },
+  {
+    path: 'table',
+    loadComponent: () =>
+      import('./pages/table-page/table-page.component').then(
+        (m) => m.TablePageComponent,
+      ),
+  },
+  {
+    path: 'notifications',
+    loadComponent: () =>
+      import('./pages/notifications-page/notifications-page.component').then(
+        (m) => m.NotificationsPageComponent,
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];
