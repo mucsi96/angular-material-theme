@@ -4,6 +4,78 @@
 />
 
 <section class="block">
+  <h2 class="block__title">Getting started</h2>
+  <p class="block__description">
+    The theme ships as SCSS plus a couple of small Angular helpers. Drop it
+    into any Angular 21+ application in three steps.
+  </p>
+
+  <ol class="steps">
+    <li>
+      <h3 class="step__title">1. Install</h3>
+      <p class="step__body">
+        Install the package alongside the Angular Material peers.
+      </p>
+      <pre class="code-block"><code>npm install &#64;mucsi96/angular-material-theme &#64;angular/material &#64;angular/cdk</code></pre>
+    </li>
+
+    <li>
+      <h3 class="step__title">2. Apply the theme</h3>
+      <p class="step__body">
+        Add the mixin to your global stylesheet (e.g. <code>src/styles.scss</code>).
+        That single call emits the <code>--bt-*</code> design tokens, runs
+        <code>mat.theme()</code>, and re-maps Material's M3 system tokens onto
+        the ui-elements palette.
+      </p>
+      <pre class="code-block"><code>&#64;use '&#64;mucsi96/angular-material-theme/styles' as bt;
+
+html &#123;
+  &#64;include bt.theme();
+&#125;</code></pre>
+    </li>
+
+    <li>
+      <h3 class="step__title">3. (Optional) wire up the providers</h3>
+      <p class="step__body">
+        In <code>app.config.ts</code>, register the opinionated defaults
+        (outlined form fields, accessible disabled buttons) and you're done.
+      </p>
+      <pre class="code-block"><code>import &#123; provideAngularMaterialTheme &#125; from '&#64;mucsi96/angular-material-theme';
+
+export const appConfig: ApplicationConfig = &#123;
+  providers: [
+    provideAnimationsAsync(),
+    provideAngularMaterialTheme(),
+  ],
+&#125;;</code></pre>
+    </li>
+  </ol>
+
+  <div class="next-steps">
+    <h3 class="next-steps__title">From there</h3>
+    <ul>
+      <li>
+        Use any <code>--bt-*</code> token from your own styles —
+        <code>background-color: var(--bt-surface-1);</code>.
+      </li>
+      <li>
+        Drop in <code>&lt;bt-bar-loader /&gt;</code> for page-level loading
+        and <code>NotificationsService.success() / .error()</code> for toasts.
+      </li>
+      <li>
+        Use the <code>.bt-notification</code> /
+        <code>.bt-notification--success</code> /
+        <code>.bt-notification--error</code> classes for inline alerts.
+      </li>
+      <li>
+        Override any Material token in the same selector:
+        <code>--mat-sys-tertiary: var(--bt-success);</code>.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
   <h2 class="block__title">Color tokens</h2>
   <p class="block__description">
     Tokens are emitted as <code>--bt-*</code> CSS custom properties on the
@@ -41,3 +113,4 @@
     }
   </div>
 </section>
+

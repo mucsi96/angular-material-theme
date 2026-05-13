@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ng",
+      "type": "npm",
+      "script": "ng",
+      "detail": "Run the Angular CLI inside this workspace (pass args after --).",
+      "problemMatcher": []
+    },
+    {
+      "label": "start",
+      "type": "npm",
+      "script": "start",
+      "detail": "Serve the gallery app on http://localhost:4200 with HMR.",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "angular",
+        "pattern": {
+          "regexp": "^\\s*Error: (.+)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*Building.*",
+          "endsPattern": ".*(Application bundle generation complete|Compiled successfully).*"
+        }
+      }
+    },
+    {
+      "label": "build",
+      "type": "npm",
+      "script": "build",
+      "detail": "Production build of the gallery app to dist/gallery.",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build:theme",
+      "type": "npm",
+      "script": "build:theme",
+      "detail": "Build the publishable @mucsi96/angular-material-theme package to dist/theme.",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build:gallery",
+      "type": "npm",
+      "script": "build:gallery",
+      "detail": "Build the gallery for GitHub Pages (sets the /angular-material-theme/ base href).",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "test",
+      "type": "npm",
+      "script": "test",
+      "detail": "Run all unit tests in watch mode.",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "watch",
+      "type": "npm",
+      "script": "watch",
+      "detail": "Rebuild the gallery on file change (dev configuration, no server).",
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
