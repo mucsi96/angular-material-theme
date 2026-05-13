@@ -5,20 +5,20 @@
     margin: 0 0 0.25rem;
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--amt-text-strong);
+    color: var(--bt-text-strong);
   }
 
   &__description {
     margin: 0 0 1rem;
-    color: var(--amt-text-muted);
+    color: var(--bt-text-muted);
 
     code {
-      font-family: var(--amt-font-mono, ui-monospace, monospace);
+      font-family: var(--bt-font-mono, ui-monospace, monospace);
       font-size: 0.875em;
       padding: 0.1em 0.35em;
       border-radius: 0.25em;
-      background-color: var(--amt-surface-2);
-      color: var(--amt-text-strong);
+      background-color: var(--bt-surface-2);
+      color: var(--bt-text-strong);
     }
   }
 }
@@ -32,15 +32,15 @@
 .swatch {
   border-radius: 0.5rem;
   padding: 1rem;
-  border: 1px solid var(--amt-outline);
+  border: 1px solid var(--bt-outline);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   min-height: 5rem;
-  color: var(--amt-text-default);
+  color: var(--bt-text-default);
 
   &--strong {
-    color: var(--amt-text-strong);
+    color: var(--bt-text-strong);
   }
 
   &__label {
@@ -71,27 +71,27 @@
   }
 
   &:hover mat-card {
-    border-color: var(--amt-link);
+    border-color: var(--bt-link);
     transform: translateY(-2px);
   }
 
   &__icon {
     font-size: 2rem;
-    color: var(--amt-link);
+    color: var(--bt-link);
     display: block;
     margin-bottom: 0.5rem;
   }
 
   &__title {
     margin: 0 0 0.25rem;
-    color: var(--amt-text-strong);
+    color: var(--bt-text-strong);
     font-size: 1rem;
     font-weight: 600;
   }
 
   &__description {
     margin: 0;
-    color: var(--amt-text-muted);
+    color: var(--bt-text-muted);
     font-size: 0.875rem;
   }
 }

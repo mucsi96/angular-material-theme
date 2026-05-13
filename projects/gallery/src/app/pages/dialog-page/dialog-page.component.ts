@@ -9,7 +9,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { FormDialogComponent } from './form-dialog/form-dialog.component';
 
 @Component({
-  selector: 'amt-gallery-dialog-page',
+  selector: 'bt-gallery-dialog-page',
   imports: [
     PageHeaderComponent,
     DemoSectionComponent,

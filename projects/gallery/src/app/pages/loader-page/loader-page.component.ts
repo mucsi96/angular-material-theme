@@ -7,7 +7,7 @@ import { PageHeaderComponent } from '../../components/page-header/page-header.co
 import { DemoSectionComponent } from '../../components/demo-section/demo-section.component';
 
 @Component({
-  selector: 'amt-gallery-loader-page',
+  selector: 'bt-gallery-loader-page',
   imports: [
     PageHeaderComponent,
     DemoSectionComponent,

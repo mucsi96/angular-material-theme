@@ -12,7 +12,7 @@ interface NavLink {
 }
 
 @Component({
-  selector: 'amt-gallery-app-header',
+  selector: 'bt-gallery-app-header',
   imports: [
     MatToolbarModule,
     MatButtonModule,

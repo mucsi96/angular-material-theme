@@ -8,7 +8,7 @@ import { PageHeaderComponent } from '../../components/page-header/page-header.co
 import { DemoSectionComponent } from '../../components/demo-section/demo-section.component';
 
 @Component({
-  selector: 'amt-gallery-menus-page',
+  selector: 'bt-gallery-menus-page',
   imports: [
     PageHeaderComponent,
     DemoSectionComponent,

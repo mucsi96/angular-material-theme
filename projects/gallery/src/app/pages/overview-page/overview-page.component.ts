@@ -18,7 +18,7 @@ interface DemoLink {
 }
 
 @Component({
-  selector: 'amt-gallery-overview-page',
+  selector: 'bt-gallery-overview-page',
   imports: [PageHeaderComponent, MatCardModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './overview-page.component.html',

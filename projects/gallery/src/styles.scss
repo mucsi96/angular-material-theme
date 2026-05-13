@@ -1,7 +1,7 @@
 // Mirror what consumers will write: `@use '@mucsi96/angular-material-theme/styles'`.
 // In this workspace we resolve via the includePaths so we don't have to publish
 // the package locally — the public API surface stays identical.
-@use 'styles/index' as amt;
+@use 'styles/index' as bt;
 
 html,
 body {
@@ -10,7 +10,7 @@ body {
 }
 
 html {
-  @include amt.theme();
+  @include bt.theme();
 }
 
 // Material Symbols glyph rendering — needed because we load the font from

@@ -5,17 +5,17 @@
   width: 100%;
 
   > * {
-    color: var(--amt-text-strong);
+    color: var(--bt-text-strong);
   }
 }
 
 .prose {
-  color: var(--amt-text-default);
+  color: var(--bt-text-default);
   max-width: 60ch;
   line-height: 1.6;
 
   strong {
-    color: var(--amt-text-strong);
+    color: var(--bt-text-strong);
   }
 
   code {
@@ -23,12 +23,12 @@
     font-size: 0.9em;
     padding: 0.1em 0.35em;
     border-radius: 0.25em;
-    background-color: var(--amt-surface-2);
-    color: var(--amt-text-strong);
+    background-color: var(--bt-surface-2);
+    color: var(--bt-text-strong);
   }
 
   a {
-    color: var(--amt-link);
+    color: var(--bt-link);
     text-decoration: none;
 
     &:hover {

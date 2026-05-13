@@ -1,12 +1,19 @@
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border-radius: 0.5rem;
-  border: 1px solid var(--amt-outline);
+  border-radius: 0.75rem;
+  border: 1px solid var(--bt-outline);
+  background-color: var(--bt-surface-1);
 }
 
 table {
   width: 100%;
+}
+
+// Strong primary-column treatment (bold names; bold numbers in the age col)
+.name-cell strong,
+.strong-cell {
+  color: var(--bt-text-strong);
 }
 
 td.num,
@@ -14,10 +21,11 @@ th.num {
   text-align: right;
 }
 
-td.actions-cell,
-th.actions-cell {
+// Narrow leading column for the row-selector chevron.
+td.selector-cell,
+th.selector-cell {
   width: 3rem;
-  text-align: right;
+  padding-right: 0;
 }
 
 .mat-mdc-row {
@@ -36,27 +44,27 @@ th.actions-cell {
   letter-spacing: 0.04em;
 
   &[data-status='active'] {
-    background-color: var(--amt-success-soft);
-    color: var(--amt-success-on);
+    background-color: var(--bt-success-soft);
+    color: var(--bt-success-on);
   }
 
   &[data-status='paused'] {
-    background-color: var(--amt-warn-soft);
+    background-color: var(--bt-warn-soft);
     color: hsl(0, 0%, 12%);
   }
 
   &[data-status='archived'] {
-    background-color: var(--amt-surface-2);
-    color: var(--amt-text-muted);
+    background-color: var(--bt-surface-2);
+    color: var(--bt-text-muted);
   }
 }
 
 .selection-note {
   width: 100%;
   margin: 0.75rem 0 0;
-  color: var(--amt-text-muted);
+  color: var(--bt-text-muted);
 
   strong {
-    color: var(--amt-text-strong);
+    color: var(--bt-text-strong);
   }
 }

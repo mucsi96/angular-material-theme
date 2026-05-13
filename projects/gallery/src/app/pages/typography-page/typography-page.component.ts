@@ -4,7 +4,7 @@ import { PageHeaderComponent } from '../../components/page-header/page-header.co
 import { DemoSectionComponent } from '../../components/demo-section/demo-section.component';
 
 @Component({
-  selector: 'amt-gallery-typography-page',
+  selector: 'bt-gallery-typography-page',
   imports: [PageHeaderComponent, DemoSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './typography-page.component.html',

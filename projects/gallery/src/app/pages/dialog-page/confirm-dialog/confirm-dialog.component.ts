@@ -12,7 +12,7 @@ export interface ConfirmDialogData {
 }
 
 @Component({
-  selector: 'amt-gallery-confirm-dialog',
+  selector: 'bt-gallery-confirm-dialog',
   imports: [MatDialogModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

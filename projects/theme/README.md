@@ -19,16 +19,16 @@ npm install @mucsi96/angular-material-theme @angular/material @angular/cdk
 In your application's global stylesheet (e.g. `src/styles.scss`):
 
 ```scss
-@use '@mucsi96/angular-material-theme/styles' as amt;
+@use '@mucsi96/angular-material-theme/styles' as bt;
 
 html {
-  @include amt.theme();
+  @include bt.theme();
 }
 ```
 
 That's it. The mixin will:
 
-1. Emit `--amt-*` design tokens on `:root` so your own styles can reuse them.
+1. Emit `--bt-*` design tokens on `:root` so your own styles can reuse them.
 2. Configure Angular Material's M3 theme (`mat.theme()`) with a blue/violet
    palette pair.
 3. Re-map `--mat-sys-*` tokens onto the ui-elements palette so all MDC
@@ -58,23 +58,23 @@ Every color is overridable. Two layers:
 
 ```scss
 html {
-  @include amt.theme();
+  @include bt.theme();
 
-  // Override an `--amt-*` token (cascades into Material).
-  --amt-primary: hsl(280, 80%, 60%);
+  // Override an `--bt-*` token (cascades into Material).
+  --bt-primary: hsl(280, 80%, 60%);
 
   // Or override a Material system token directly.
-  --mat-sys-tertiary: var(--amt-success);
+  --mat-sys-tertiary: var(--bt-success);
 }
 ```
 
 You can also `@use` the palette module directly to read the raw HSL values:
 
 ```scss
-@use '@mucsi96/angular-material-theme/styles/palette' as amt-palette;
+@use '@mucsi96/angular-material-theme/styles/palette' as bt-palette;
 
 .banner {
-  background-color: amt-palette.$brand-primary;
+  background-color: bt-palette.$brand-primary;
 }
 ```
 

@@ -17,7 +17,7 @@ const BASE_CONFIG: MatSnackBarConfig = {
 /**
  * Thin wrapper around `MatSnackBar` that applies the theme's success/error
  * panel classes. Snackbar styling is provided by the theme itself
- * (`.amt-snackbar-success`, `.amt-snackbar-error`); this service just makes
+ * (`.bt-snackbar-success`, `.bt-snackbar-error`); this service just makes
  * the calling code obvious at the use-site.
  */
 @Injectable({ providedIn: 'root' })
@@ -28,14 +28,14 @@ export class NotificationsService {
     message: string,
     config?: MatSnackBarConfig,
   ): MatSnackBarRef<TextOnlySnackBar> {
-    return this.open(message, 'amt-snackbar-success', config);
+    return this.open(message, 'bt-snackbar-success', config);
   }
 
   error(
     message: string,
     config?: MatSnackBarConfig,
   ): MatSnackBarRef<TextOnlySnackBar> {
-    return this.open(message, 'amt-snackbar-error', config);
+    return this.open(message, 'bt-snackbar-error', config);
   }
 
   private open(
