@@ -17,36 +17,42 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      theme-version: ${{ steps.theme-meta.outputs.version }}
-      theme-published: ${{ steps.theme-meta.outputs.published }}
+      has-next-version: ${{ steps.get_next_version.outputs.hasNextVersion }}
+      next-version: ${{ steps.get_next_version.outputs.version }}
+      next-tag: ${{ steps.get_next_version.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history so get-next-version can read existing tags.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           registry-url: https://registry.npmjs.org
+      - name: Get next theme version
+        id: get_next_version
+        uses: mucsi96/get-next-version@main
+        with:
+          prefix: 'theme'
+          src: projects/theme
+      - name: Stamp theme version
+        if: steps.get_next_version.outputs.hasNextVersion == 'true'
+        env:
+          NEW_VERSION: ${{ steps.get_next_version.outputs.version }}
+        run: |
+          node -e "const fs=require('fs');const p=require('./projects/theme/package.json');p.version=process.env.NEW_VERSION;fs.writeFileSync('./projects/theme/package.json', JSON.stringify(p, null, 2) + '\n');"
       - run: npm ci
       - run: npm run build:theme
       # Use the GitHub Pages base href so deep links and asset paths resolve.
       - run: npm run build:gallery
-      - name: Inspect theme version
-        id: theme-meta
-        run: |
-          version=$(node -p "require('./projects/theme/package.json').version")
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-          if npm view "@mucsi96/angular-material-theme@$version" version >/dev/null 2>&1; then
-            echo "published=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "published=false" >> "$GITHUB_OUTPUT"
-          fi
       - name: Upload gallery artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/gallery/browser
       - name: Upload theme artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.get_next_version.outputs.hasNextVersion == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: theme-package
@@ -67,11 +73,11 @@ jobs:
         uses: actions/deploy-pages@v4
 
   publish-npm:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.build.outputs.theme-published == 'false'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.build.outputs.has-next-version == 'true'
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # required to create the GitHub release / tag
       id-token: write # required for npm provenance
     steps:
       - uses: actions/checkout@v4
@@ -84,8 +90,14 @@ jobs:
         with:
           name: theme-package
           path: dist/theme
-      - name: Publish
+      - name: Publish to npm
         working-directory: dist/theme
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.build.outputs.next-tag }}
+          name: ${{ needs.build.outputs.next-tag }}
+          generate_release_notes: true

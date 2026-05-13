@@ -78,6 +78,17 @@ You can also `@use` the palette module directly to read the raw HSL values:
 }
 ```
 
+## Releases
+
+Versions are computed automatically by CI using
+[`mucsi96/get-next-version`](https://github.com/mucsi96/get-next-version) — it
+inspects existing `theme-*` git tags and conventional commits touching
+`projects/theme`, then bumps and stamps `package.json` before the build.
+Publishing to npm and creating the GitHub release are gated on its
+`hasNextVersion` output, so a push without library changes is a no-op. The
+on-disk `"version"` field in `projects/theme/package.json` is a `0.0.0-dev`
+placeholder.
+
 ## License
 
 MIT © Igor Bari
