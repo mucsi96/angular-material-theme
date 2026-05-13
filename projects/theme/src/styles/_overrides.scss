@@ -1,0 +1,69 @@
+// Component-level adjustments that build on top of mat.theme().
+//
+// These touch only Material's documented MAT_* / MDC_* CSS custom properties
+// and CDK overlay layers — no internal class selectors, no !important — so
+// they survive Material upgrades.
+
+@mixin apply() {
+  // --- Buttons ------------------------------------------------------------
+  --mat-button-filled-container-shape: 0.5rem;
+  --mat-button-outlined-container-shape: 0.5rem;
+  --mat-button-text-container-shape: 0.5rem;
+  --mat-button-protected-container-shape: 0.5rem;
+  --mdc-filled-button-container-shape: 0.5rem;
+  --mdc-outlined-button-container-shape: 0.5rem;
+  --mdc-text-button-container-shape: 0.5rem;
+  --mdc-protected-button-container-shape: 0.5rem;
+
+  // FAB
+  --mdc-fab-container-color: var(--amt-primary);
+  --mat-fab-foreground-color: var(--amt-text-on-brand);
+
+  // Icon button: keep the subtle hover-bg from ui-elements
+  --mat-icon-button-state-layer-color: var(--amt-text-default);
+  --mat-icon-button-hover-state-layer-opacity: 0.08;
+
+  // --- Form fields --------------------------------------------------------
+  --mdc-outlined-text-field-container-shape: 0.5rem;
+  --mdc-filled-text-field-container-shape: 0.5rem;
+  --mdc-outlined-text-field-outline-color: var(--amt-outline);
+  --mdc-outlined-text-field-hover-outline-color: var(--amt-text-muted);
+  --mdc-outlined-text-field-focus-outline-color: var(--amt-link);
+  --mdc-outlined-text-field-input-text-color: var(--amt-text-strong);
+  --mdc-outlined-text-field-label-text-color: var(--amt-text-muted);
+  --mdc-outlined-text-field-focus-label-text-color: var(--amt-link);
+  --mdc-filled-text-field-container-color: var(--amt-surface-2);
+
+  // --- Menu / select / autocomplete --------------------------------------
+  --mat-menu-container-color: var(--amt-surface-2);
+  --mat-menu-container-shape: 0.5rem;
+  --mat-menu-item-label-text-color: var(--amt-text-default);
+  --mat-menu-item-icon-color: var(--amt-text-muted);
+  --mat-menu-item-hover-state-layer-color: var(--amt-surface-3);
+  --mat-menu-item-focus-state-layer-color: var(--amt-surface-3);
+  --mat-select-panel-background-color: var(--amt-surface-2);
+
+  // --- Dialog -------------------------------------------------------------
+  --mat-dialog-container-color: var(--amt-surface-1);
+  --mat-dialog-subhead-color: var(--amt-text-strong);
+  --mat-dialog-supporting-text-color: var(--amt-text-default);
+  --mat-dialog-container-shape: 0.75rem;
+
+  // --- Toolbar / surface containers --------------------------------------
+  --mat-toolbar-container-background-color: var(--amt-surface-1);
+  --mat-toolbar-container-text-color: var(--amt-text-strong);
+
+  // --- Card ---------------------------------------------------------------
+  --mdc-elevated-card-container-color: var(--amt-surface-1);
+  --mdc-elevated-card-container-shape: 0.75rem;
+  --mdc-outlined-card-container-color: var(--amt-surface-1);
+  --mdc-outlined-card-outline-color: var(--amt-outline);
+  --mdc-outlined-card-container-shape: 0.75rem;
+
+  // --- Snackbar / chips ---------------------------------------------------
+  --mdc-snackbar-container-color: var(--amt-surface-2);
+  --mdc-snackbar-supporting-text-color: var(--amt-text-strong);
+
+  // --- Divider ------------------------------------------------------------
+  --mat-divider-color: var(--amt-outline);
+}

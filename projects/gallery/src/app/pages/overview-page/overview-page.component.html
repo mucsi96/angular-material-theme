@@ -1,0 +1,43 @@
+<amt-gallery-page-header
+  title="@mucsi96/angular-material-theme"
+  subtitle="A future-proof, opinionated dark Angular Material theme inspired by mucsi96/ui-elements."
+/>
+
+<section class="block">
+  <h2 class="block__title">Color tokens</h2>
+  <p class="block__description">
+    Tokens are emitted as <code>--amt-*</code> CSS custom properties on the
+    <code>html</code> element so any styles in your app can reuse them.
+  </p>
+  <div class="swatches">
+    @for (swatch of swatches; track swatch.token) {
+      <div
+        class="swatch"
+        [class.swatch--strong]="swatch.textOnTop === 'strong'"
+        [style.background-color]="'var(--amt-' + swatch.token + ')'"
+      >
+        <span class="swatch__label">{{ swatch.label }}</span>
+        <code class="swatch__token">--amt-{{ swatch.token }}</code>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="block__title">Demos</h2>
+  <div class="demo-grid">
+    @for (demo of demos; track demo.path) {
+      <a [routerLink]="demo.path" class="demo-card">
+        <mat-card appearance="outlined">
+          <mat-card-content>
+            <span class="material-symbols-rounded demo-card__icon">{{
+              demo.icon
+            }}</span>
+            <h3 class="demo-card__title">{{ demo.label }}</h3>
+            <p class="demo-card__description">{{ demo.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      </a>
+    }
+  </div>
+</section>

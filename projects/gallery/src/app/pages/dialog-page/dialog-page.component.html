@@ -1,0 +1,28 @@
+<amt-gallery-page-header
+  title="Dialog"
+  subtitle="Modal surfaces for confirmation and short forms."
+/>
+
+<amt-gallery-demo-section
+  title="Confirm"
+  description="Destructive actions get a focused confirmation dialog."
+>
+  <button mat-flat-button color="warn" (click)="openConfirm()">
+    <mat-icon class="material-symbols-rounded">delete</mat-icon>
+    Delete project
+  </button>
+</amt-gallery-demo-section>
+
+<amt-gallery-demo-section
+  title="Form dialog"
+  description="A short form rendered inside a dialog with sticky actions."
+>
+  <button mat-flat-button (click)="openForm()">
+    <mat-icon class="material-symbols-rounded">person_add</mat-icon>
+    Invite teammate
+  </button>
+</amt-gallery-demo-section>
+
+@if (lastResult(); as result) {
+  <p class="result">Last dialog result: <strong>{{ result }}</strong></p>
+}

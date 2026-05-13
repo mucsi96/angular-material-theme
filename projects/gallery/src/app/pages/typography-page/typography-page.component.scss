@@ -1,0 +1,38 @@
+.type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+
+  > * {
+    color: var(--amt-text-strong);
+  }
+}
+
+.prose {
+  color: var(--amt-text-default);
+  max-width: 60ch;
+  line-height: 1.6;
+
+  strong {
+    color: var(--amt-text-strong);
+  }
+
+  code {
+    font-family: ui-monospace, monospace;
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+    background-color: var(--amt-surface-2);
+    color: var(--amt-text-strong);
+  }
+
+  a {
+    color: var(--amt-link);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

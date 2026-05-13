@@ -1,0 +1,75 @@
+<amt-gallery-page-header
+  title="Buttons"
+  subtitle="All Material button variants and the floating action button, themed."
+/>
+
+<amt-gallery-demo-section
+  title="Filled buttons"
+  description="The default action style — strong contrast on the primary brand color."
+>
+  <button mat-flat-button>Primary</button>
+  <button mat-flat-button color="accent">Accent</button>
+  <button mat-flat-button color="warn">Warn</button>
+  <button mat-flat-button disabled>Disabled</button>
+  <button mat-flat-button>
+    <mat-icon class="material-symbols-rounded">cloud_upload</mat-icon>
+    With icon
+  </button>
+</amt-gallery-demo-section>
+
+<amt-gallery-demo-section
+  title="Outlined buttons"
+  description="Lower-emphasis actions that still need clear affordance."
+>
+  <button mat-stroked-button>Default</button>
+  <button mat-stroked-button color="primary">Primary</button>
+  <button mat-stroked-button color="warn">Warn</button>
+  <button mat-stroked-button disabled>Disabled</button>
+</amt-gallery-demo-section>
+
+<amt-gallery-demo-section
+  title="Text buttons"
+  description="The lightest treatment — pair with filled buttons inside dialogs."
+>
+  <button mat-button>Default</button>
+  <button mat-button color="primary">Primary</button>
+  <button mat-button color="warn">Warn</button>
+  <button mat-button disabled>Disabled</button>
+</amt-gallery-demo-section>
+
+<amt-gallery-demo-section
+  title="Icon buttons"
+  description="Square hit area with a state layer on hover/focus."
+>
+  <button mat-icon-button aria-label="Search" matTooltip="Search">
+    <mat-icon class="material-symbols-rounded">search</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Favorite" matTooltip="Favorite">
+    <mat-icon class="material-symbols-rounded">favorite</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" aria-label="Edit" matTooltip="Edit">
+    <mat-icon class="material-symbols-rounded">edit</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" aria-label="Delete" matTooltip="Delete">
+    <mat-icon class="material-symbols-rounded">delete</mat-icon>
+  </button>
+  <button mat-icon-button disabled aria-label="Disabled">
+    <mat-icon class="material-symbols-rounded">block</mat-icon>
+  </button>
+</amt-gallery-demo-section>
+
+<amt-gallery-demo-section
+  title="Floating action buttons"
+  description="Surface a single primary action — try the extended FAB for context."
+>
+  <button mat-fab aria-label="Add">
+    <mat-icon class="material-symbols-rounded">add</mat-icon>
+  </button>
+  <button mat-mini-fab aria-label="Add small">
+    <mat-icon class="material-symbols-rounded">add</mat-icon>
+  </button>
+  <button mat-fab extended>
+    <mat-icon class="material-symbols-rounded">add</mat-icon>
+    New item
+  </button>
+</amt-gallery-demo-section>

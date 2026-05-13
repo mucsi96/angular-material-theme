@@ -1,0 +1,81 @@
+// =============================================================================
+// Palette
+// =============================================================================
+//
+// Color tokens distilled from `mucsi96/ui-elements`. Everything is expressed
+// in HSL so it's easy to reason about (matching the source repo) and easy to
+// override per token.
+//
+// Scale: a small, intentional set of surface and accent colors. We resist
+// inventing tones we don't actually need — the gallery uses the exact same
+// list.
+
+// --- Brand / accent ---------------------------------------------------------
+$brand-primary:   hsl(220, 89%, 53%);   // button blue
+$brand-primary-hover: hsl(221, 79%, 48%);
+$brand-link:      hsl(218, 93%, 61%);   // link / focus ring
+$brand-link-hint: hsl(217, 93%, 72%);   // softer text accent
+
+$brand-success:        hsl(161, 92%, 25%);
+$brand-success-hover:  hsl(163, 93%, 22%);
+$brand-success-soft:   hsl(145, 78%, 68%);
+$brand-success-on:     hsl(145, 100%, 14%);
+
+$brand-warn:           hsl(42, 93%, 46%);
+$brand-warn-hover:     hsl(37, 97%, 39%);
+$brand-warn-soft:      hsl(56, 62%, 70%);
+
+$brand-error:          hsl(0, 75%, 51%);
+$brand-error-hover:    hsl(0, 74%, 45%);
+$brand-error-soft:     hsl(0, 96%, 77%);
+$brand-error-on:       hsl(0, 74%, 16%);
+
+// --- Neutral surfaces -------------------------------------------------------
+// Layered, dark-first. Numbers go from deepest background up to the brightest
+// elevated surface — pick the smallest that gives enough contrast.
+$surface-0: hsl(221, 39%, 11%);   // app background
+$surface-1: hsl(215, 28%, 17%);   // header, sidebar
+$surface-2: hsl(217, 19%, 27%);   // cards, popovers, inputs
+$surface-3: hsl(216, 17%, 27%);   // hover on surface-2
+$surface-4: hsl(218, 18%, 27%);   // focus ring base
+$outline:   hsl(215, 14%, 34%);   // borders, dividers
+
+// --- Text -------------------------------------------------------------------
+$text-strong: hsl(0, 0%, 100%);     // headings, primary copy
+$text-default: hsl(220, 13%, 91%);  // body
+$text-muted:   hsl(218, 11%, 65%);  // secondary copy, disabled
+$text-on-brand: hsl(0, 0%, 100%);
+
+// --- Tokens collection ------------------------------------------------------
+// A flat map consumers can iterate over to emit CSS custom properties.
+$tokens: (
+  // surfaces
+  surface-0: $surface-0,
+  surface-1: $surface-1,
+  surface-2: $surface-2,
+  surface-3: $surface-3,
+  surface-4: $surface-4,
+  outline: $outline,
+  // text
+  text-strong: $text-strong,
+  text-default: $text-default,
+  text-muted: $text-muted,
+  text-on-brand: $text-on-brand,
+  // brand
+  primary: $brand-primary,
+  primary-hover: $brand-primary-hover,
+  link: $brand-link,
+  link-hint: $brand-link-hint,
+  // semantic
+  success: $brand-success,
+  success-hover: $brand-success-hover,
+  success-soft: $brand-success-soft,
+  success-on: $brand-success-on,
+  warn: $brand-warn,
+  warn-hover: $brand-warn-hover,
+  warn-soft: $brand-warn-soft,
+  error: $brand-error,
+  error-hover: $brand-error-hover,
+  error-soft: $brand-error-soft,
+  error-on: $brand-error-on,
+);

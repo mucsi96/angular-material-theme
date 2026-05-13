@@ -1,0 +1,50 @@
+{
+  "name": "@mucsi96/angular-material-theme",
+  "version": "0.0.1",
+  "description": "A future-proof, opinionated dark Angular Material 21+ theme inspired by mucsi96/ui-elements.",
+  "keywords": [
+    "angular",
+    "angular-material",
+    "material-design",
+    "theme",
+    "dark-theme",
+    "scss"
+  ],
+  "author": "Igor Bari <mucsi96@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mucsi96/angular-material-theme.git"
+  },
+  "homepage": "https://mucsi96.github.io/angular-material-theme/",
+  "bugs": {
+    "url": "https://github.com/mucsi96/angular-material-theme/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=21.0.0",
+    "@angular/core": ">=21.0.0",
+    "@angular/material": ">=21.0.0",
+    "@angular/cdk": ">=21.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "exports": {
+    "./styles": {
+      "sass": "./styles/_index.scss",
+      "default": "./styles/_index.scss"
+    },
+    "./styles/*": {
+      "sass": "./styles/*",
+      "default": "./styles/*"
+    },
+    "./prebuilt/*": {
+      "sass": "./prebuilt/*",
+      "default": "./prebuilt/*"
+    }
+  }
+}
