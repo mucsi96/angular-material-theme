@@ -69,18 +69,23 @@
   }
 }
 
+// Plain div header inside the mat-menu — no mat-menu-item directive, so we
+// don't fight Material's internal flex-row layout for menu items.
 .profile-menu__header {
-  display: flex !important;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.25;
   gap: 0.125rem;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  pointer-events: none;
+  padding: 0.75rem 1rem;
+  line-height: 1.25;
+}
 
-  small {
-    color: var(--bt-text-muted);
-    font-size: 0.75rem;
-  }
+.profile-menu__name {
+  color: var(--bt-text-strong);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.profile-menu__email {
+  color: var(--bt-text-muted);
+  font-size: 0.75rem;
 }
