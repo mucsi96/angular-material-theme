@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
-  selector: 'amt-gallery-page-header',
+  selector: 'bt-gallery-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="page-header">
@@ -20,12 +20,12 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       margin: 0 0 0.25rem;
       font-size: 2rem;
       font-weight: 600;
-      color: var(--amt-text-strong);
+      color: var(--bt-text-strong);
     }
 
     p {
       margin: 0;
-      color: var(--amt-text-muted);
+      color: var(--bt-text-muted);
       font-size: 1rem;
     }
   `,

@@ -1,31 +1,31 @@
-<amt-gallery-page-header
+<bt-gallery-page-header
   title="Loaders"
   subtitle="The signature 5-bar stretch loader plus Material's progress indicators, themed."
 />
 
-<amt-gallery-demo-section
+<bt-gallery-demo-section
   title="Bar loader"
   description="Page-level indicator — five bars stretching in sequence. Reuses the ui-elements animation."
 >
-  <amt-bar-loader />
-  <amt-bar-loader [color]="'var(--amt-link)'" label="Loading projects" />
-  <amt-bar-loader [color]="'var(--amt-success-soft)'" label="Saving" />
-</amt-gallery-demo-section>
+  <bt-bar-loader />
+  <bt-bar-loader [color]="'var(--bt-link)'" label="Loading projects" />
+  <bt-bar-loader [color]="'var(--bt-success-soft)'" label="Saving" />
+</bt-gallery-demo-section>
 
-<amt-gallery-demo-section
+<bt-gallery-demo-section
   title="Progress bar"
   description="Material's linear progress, themed onto the link blue."
 >
   <mat-progress-bar mode="indeterminate" />
   <mat-progress-bar mode="determinate" value="62" />
   <mat-progress-bar mode="buffer" value="40" bufferValue="65" />
-</amt-gallery-demo-section>
+</bt-gallery-demo-section>
 
-<amt-gallery-demo-section
+<bt-gallery-demo-section
   title="Spinner"
   description="Inline circular spinner — good for buttons and table cells."
 >
   <mat-progress-spinner mode="indeterminate" diameter="32" />
   <mat-progress-spinner mode="indeterminate" diameter="48" />
   <mat-progress-spinner mode="determinate" value="75" diameter="48" />
-</amt-gallery-demo-section>
+</bt-gallery-demo-section>

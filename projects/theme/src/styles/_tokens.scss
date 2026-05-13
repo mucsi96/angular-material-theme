@@ -1,9 +1,9 @@
 @use 'sass:map';
 @use './palette';
 
-// Emits CSS custom properties under `--amt-*` so app code can reference any
-// token (e.g. `color: var(--amt-text-muted)`) without re-importing SCSS.
-@mixin emit-css-vars($prefix: '--amt-') {
+// Emits CSS custom properties under `--bt-*` so app code can reference any
+// token (e.g. `color: var(--bt-text-muted)`) without re-importing SCSS.
+@mixin emit-css-vars($prefix: '--bt-') {
   @each $name, $value in palette.$tokens {
     #{$prefix}#{$name}: #{$value};
   }

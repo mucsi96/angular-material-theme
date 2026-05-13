@@ -20,7 +20,7 @@ export interface FormDialogResult {
 }
 
 @Component({
-  selector: 'amt-gallery-form-dialog',
+  selector: 'bt-gallery-form-dialog',
   imports: [
     ReactiveFormsModule,
     MatDialogModule,

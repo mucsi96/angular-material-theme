@@ -10,14 +10,14 @@
 //
 // Public mixin. Apply once at the application root, e.g.:
 //
-//   @use '@mucsi96/angular-material-theme/styles' as amt;
+//   @use '@mucsi96/angular-material-theme/styles' as bt;
 //
 //   html {
-//     @include amt.theme();
+//     @include bt.theme();
 //   }
 //
 // The mixin:
-//   1. Emits raw color tokens (`--amt-*`) so your app code can reference them.
+//   1. Emits raw color tokens (`--bt-*`) so your app code can reference them.
 //   2. Configures Angular Material's M3 theme using a blue/violet palette pair.
 //   3. Re-maps Material's system tokens onto the ui-elements palette so MDC
 //      components (buttons, inputs, dialogs, …) inherit the exact look.
@@ -29,8 +29,8 @@
   @include tokens.emit-css-vars();
 
   color-scheme: dark;
-  background-color: var(--amt-surface-0);
-  color: var(--amt-text-default);
+  background-color: var(--bt-surface-0);
+  color: var(--bt-text-default);
   font-family: #{typography.$font-family};
 
   // 2. Material M3 theme. Blue primary matches the ui-elements link/button
@@ -52,33 +52,33 @@
   //    M3 colors don't drift from the source ui-elements look. These names are
   //    Angular Material's documented M3 system tokens — overriding them is the
   //    forward-compatible escape hatch (no internal selectors involved).
-  --mat-sys-background: var(--amt-surface-0);
-  --mat-sys-on-background: var(--amt-text-default);
-  --mat-sys-surface: var(--amt-surface-0);
-  --mat-sys-surface-dim: var(--amt-surface-0);
-  --mat-sys-surface-bright: var(--amt-surface-2);
-  --mat-sys-surface-container-lowest: var(--amt-surface-0);
-  --mat-sys-surface-container-low: var(--amt-surface-1);
-  --mat-sys-surface-container: var(--amt-surface-2);
-  --mat-sys-surface-container-high: var(--amt-surface-3);
-  --mat-sys-surface-container-highest: var(--amt-surface-4);
-  --mat-sys-on-surface: var(--amt-text-default);
-  --mat-sys-on-surface-variant: var(--amt-text-muted);
-  --mat-sys-outline: var(--amt-outline);
-  --mat-sys-outline-variant: var(--amt-outline);
+  --mat-sys-background: var(--bt-surface-0);
+  --mat-sys-on-background: var(--bt-text-default);
+  --mat-sys-surface: var(--bt-surface-0);
+  --mat-sys-surface-dim: var(--bt-surface-0);
+  --mat-sys-surface-bright: var(--bt-surface-2);
+  --mat-sys-surface-container-lowest: var(--bt-surface-0);
+  --mat-sys-surface-container-low: var(--bt-surface-1);
+  --mat-sys-surface-container: var(--bt-surface-2);
+  --mat-sys-surface-container-high: var(--bt-surface-3);
+  --mat-sys-surface-container-highest: var(--bt-surface-4);
+  --mat-sys-on-surface: var(--bt-text-default);
+  --mat-sys-on-surface-variant: var(--bt-text-muted);
+  --mat-sys-outline: var(--bt-outline);
+  --mat-sys-outline-variant: var(--bt-outline);
 
-  --mat-sys-primary: var(--amt-primary);
-  --mat-sys-on-primary: var(--amt-text-on-brand);
-  --mat-sys-primary-container: var(--amt-surface-2);
-  --mat-sys-on-primary-container: var(--amt-link);
+  --mat-sys-primary: var(--bt-primary);
+  --mat-sys-on-primary: var(--bt-text-on-brand);
+  --mat-sys-primary-container: var(--bt-surface-2);
+  --mat-sys-on-primary-container: var(--bt-link);
 
-  --mat-sys-tertiary: var(--amt-link);
-  --mat-sys-on-tertiary: var(--amt-text-on-brand);
+  --mat-sys-tertiary: var(--bt-link);
+  --mat-sys-on-tertiary: var(--bt-text-on-brand);
 
-  --mat-sys-error: var(--amt-error);
-  --mat-sys-on-error: var(--amt-text-on-brand);
-  --mat-sys-error-container: var(--amt-error-soft);
-  --mat-sys-on-error-container: var(--amt-error-on);
+  --mat-sys-error: var(--bt-error);
+  --mat-sys-on-error: var(--bt-text-on-brand);
+  --mat-sys-error-container: var(--bt-error-soft);
+  --mat-sys-on-error-container: var(--bt-error-on);
 
   // 4. Component-level tweaks that aren't expressible via system tokens.
   @include overrides.apply();

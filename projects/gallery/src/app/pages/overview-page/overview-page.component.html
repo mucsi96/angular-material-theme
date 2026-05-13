@@ -1,4 +1,4 @@
-<amt-gallery-page-header
+<bt-gallery-page-header
   title="@mucsi96/angular-material-theme"
   subtitle="A future-proof, opinionated dark Angular Material theme inspired by mucsi96/ui-elements."
 />
@@ -6,7 +6,7 @@
 <section class="block">
   <h2 class="block__title">Color tokens</h2>
   <p class="block__description">
-    Tokens are emitted as <code>--amt-*</code> CSS custom properties on the
+    Tokens are emitted as <code>--bt-*</code> CSS custom properties on the
     <code>html</code> element so any styles in your app can reuse them.
   </p>
   <div class="swatches">
@@ -14,10 +14,10 @@
       <div
         class="swatch"
         [class.swatch--strong]="swatch.textOnTop === 'strong'"
-        [style.background-color]="'var(--amt-' + swatch.token + ')'"
+        [style.background-color]="'var(--bt-' + swatch.token + ')'"
       >
         <span class="swatch__label">{{ swatch.label }}</span>
-        <code class="swatch__token">--amt-{{ swatch.token }}</code>
+        <code class="swatch__token">--bt-{{ swatch.token }}</code>
       </div>
     }
   </div>

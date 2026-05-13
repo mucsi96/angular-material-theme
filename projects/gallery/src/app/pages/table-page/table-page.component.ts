@@ -27,7 +27,7 @@ const SEED: readonly Project[] = [
 ];
 
 @Component({
-  selector: 'amt-gallery-table-page',
+  selector: 'bt-gallery-table-page',
   imports: [
     PageHeaderComponent,
     DemoSectionComponent,

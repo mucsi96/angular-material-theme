@@ -4,11 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 
 @Component({
-  selector: 'amt-gallery-root',
+  selector: 'bt-gallery-root',
   imports: [RouterOutlet, AppHeaderComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <amt-gallery-app-header />
+    <bt-gallery-app-header />
     <main class="page">
       <router-outlet />
     </main>

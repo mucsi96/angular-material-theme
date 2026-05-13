@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
-  selector: 'amt-gallery-demo-section',
+  selector: 'bt-gallery-demo-section',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="section">
@@ -22,8 +22,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     }
 
     .section {
-      background-color: var(--amt-surface-1);
-      border: 1px solid var(--amt-outline);
+      background-color: var(--bt-surface-1);
+      border: 1px solid var(--bt-outline);
       border-radius: 0.75rem;
       padding: 1.5rem;
       margin-bottom: 1.5rem;
@@ -37,12 +37,12 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       margin: 0;
       font-size: 1.125rem;
       font-weight: 600;
-      color: var(--amt-text-strong);
+      color: var(--bt-text-strong);
     }
 
     .section__description {
       margin: 0.25rem 0 0;
-      color: var(--amt-text-muted);
+      color: var(--bt-text-muted);
       font-size: 0.875rem;
     }
 

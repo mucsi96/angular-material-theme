@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/theme",
       "sourceRoot": "projects/theme/src",
-      "prefix": "amt",
+      "prefix": "bt",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
@@ -36,7 +36,7 @@
       },
       "root": "projects/gallery",
       "sourceRoot": "projects/gallery/src",
-      "prefix": "amt-gallery",
+      "prefix": "bt-gallery",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
