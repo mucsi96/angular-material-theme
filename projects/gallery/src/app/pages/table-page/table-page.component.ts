@@ -9,21 +9,22 @@ import { MatChipsModule } from '@angular/material/chips';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { DemoSectionComponent } from '../../components/demo-section/demo-section.component';
 
-interface Project {
+interface Person {
   readonly name: string;
+  readonly interest: string;
   readonly owner: string;
   readonly status: 'active' | 'paused' | 'archived';
   readonly updated: string;
-  readonly issues: number;
+  readonly age: number;
 }
 
-const SEED: readonly Project[] = [
-  { name: 'angular-material-theme', owner: 'mucsi96', status: 'active', updated: '2 hours ago', issues: 3 },
-  { name: 'ui-elements', owner: 'mucsi96', status: 'active', updated: '1 day ago', issues: 1 },
-  { name: 'workout-tracker', owner: 'mucsi96', status: 'paused', updated: '2 weeks ago', issues: 12 },
-  { name: 'pixel-perfect', owner: 'mucsi96', status: 'active', updated: '3 days ago', issues: 0 },
-  { name: 'legacy-portal', owner: 'mucsi96', status: 'archived', updated: '8 months ago', issues: 0 },
-  { name: 'storybook-sandbox', owner: 'mucsi96', status: 'paused', updated: '1 month ago', issues: 5 },
+const SEED: readonly Person[] = [
+  { name: 'Chris',  interest: 'HTML tables',         owner: 'mucsi96', status: 'active',   updated: '2 hours ago',  age: 22 },
+  { name: 'Dennis', interest: 'Web accessibility',   owner: 'mucsi96', status: 'active',   updated: '1 day ago',    age: 45 },
+  { name: 'Sarah',  interest: 'JavaScript frameworks', owner: 'mucsi96', status: 'paused', updated: '3 days ago',   age: 29 },
+  { name: 'Karen',  interest: 'Web performance',     owner: 'mucsi96', status: 'active',   updated: '1 week ago',   age: 36 },
+  { name: 'Erik',   interest: 'CSS layout',          owner: 'mucsi96', status: 'archived', updated: '8 months ago', age: 51 },
+  { name: 'Maya',   interest: 'Animation',           owner: 'mucsi96', status: 'paused',   updated: '1 month ago',  age: 27 },
 ];
 
 @Component({
@@ -44,18 +45,19 @@ const SEED: readonly Project[] = [
 })
 export class TablePageComponent {
   protected readonly columns: readonly string[] = [
+    'selector',
     'name',
+    'interest',
     'owner',
     'status',
     'updated',
-    'issues',
-    'actions',
+    'age',
   ];
 
-  protected readonly rows = signal<readonly Project[]>(SEED);
-  protected readonly selectedRow = signal<Project | undefined>(undefined);
+  protected readonly rows = signal<readonly Person[]>(SEED);
+  protected readonly selectedRow = signal<Person | undefined>(undefined);
 
-  protected select(row: Project): void {
+  protected select(row: Person): void {
     this.selectedRow.update((current) => (current === row ? undefined : row));
   }
 
@@ -66,8 +68,8 @@ export class TablePageComponent {
     }
     const dir = event.direction === 'asc' ? 1 : -1;
     const sorted = [...SEED].sort((a, b) => {
-      const av = a[event.active as keyof Project];
-      const bv = b[event.active as keyof Project];
+      const av = a[event.active as keyof Person];
+      const bv = b[event.active as keyof Person];
       if (av < bv) return -1 * dir;
       if (av > bv) return 1 * dir;
       return 0;

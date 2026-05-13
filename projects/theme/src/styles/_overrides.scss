@@ -67,14 +67,20 @@
 
   // --- Table --------------------------------------------------------------
   // Match the ui-elements table: uppercase header on surface-2, body rows on
-  // surface-1, hover lifts to surface-2, selected rows tint blue.
+  // surface-1, hover lifts to surface-2, selected rows tint blue. Generous
+  // row height (≈52px) and 1.5rem horizontal padding — applied via tokens
+  // where possible, and via direct selectors for the cell padding which has
+  // no system-token equivalent in Material 21.
   --mat-table-background-color: var(--bt-surface-1);
   --mat-table-header-container-background-color: var(--bt-surface-2);
+  --mat-table-header-container-height: 3rem;
   --mat-table-header-headline-color: var(--bt-text-muted);
   --mat-table-header-headline-size: 0.75rem;
   --mat-table-header-headline-weight: 600;
   --mat-table-row-item-container-color: var(--bt-surface-1);
+  --mat-table-row-item-container-height: 3.5rem;
   --mat-table-row-item-label-text-color: var(--bt-text-default);
+  --mat-table-row-item-label-text-size: 0.875rem;
   --mat-table-row-item-outline-color: var(--bt-surface-2);
 
   // --- Sort / paginator ---------------------------------------------------
@@ -188,10 +194,16 @@
   }
 
   // Material table tweaks not expressible via tokens: uppercase headers,
-  // selected-row treatment.
+  // generous horizontal padding, and the selected-row tint.
   .mat-mdc-header-cell {
     text-transform: uppercase;
     letter-spacing: 0.04em;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell,
+  .mat-mdc-footer-cell {
+    padding: 0 1.5rem;
   }
 
   .mat-mdc-row {
@@ -204,6 +216,22 @@
     &[aria-selected='true'] {
       background-color: hsl(215, 44%, 28%);
       color: var(--bt-text-strong);
+
+      // The leading row-selector chevron switches to strong-text on selection.
+      .bt-row-selector {
+        color: var(--bt-text-strong);
+      }
     }
+  }
+
+  // Row-selector chevron — leading column that signals row affordance.
+  .bt-row-selector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--bt-text-muted);
+    transition: color 0.2s ease;
   }
 }
