@@ -81,9 +81,18 @@ export type SplitButtonColor = 'primary' | 'accent' | 'warn';
     .bt-split-button__secondary {
       --mdc-filled-button-container-shape: 0 0.5rem 0.5rem 0;
       --mat-button-filled-container-shape: 0 0.5rem 0.5rem 0;
+      // The chevron is the only content in this half, so neutralise the
+      // leading-icon spacing Material applies for the icon-then-label
+      // layout — otherwise the icon sits off-centre, pushed to the right.
+      --mat-button-filled-icon-spacing: 0;
+      --mat-button-filled-icon-offset: 0;
       min-width: 2.5rem;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
+
+      .mat-icon {
+        margin: 0;
+      }
     }
 
     .bt-split-button__divider {
