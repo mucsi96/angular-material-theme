@@ -9,3 +9,4 @@
 export * from './lib/theme.providers';
 export * from './lib/bar-loader/bar-loader.component';
 export * from './lib/notifications/notifications.service';
+export * from './lib/split-button/split-button.component';

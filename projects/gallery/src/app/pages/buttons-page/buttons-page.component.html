@@ -73,3 +73,60 @@
     New item
   </button>
 </bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Split button"
+  description="Primary action on the left, secondary actions in a chevron-triggered menu."
+>
+  <bt-split-button
+    label="Save"
+    icon="save"
+    menuAriaLabel="Save options"
+    (primaryAction)="setAction('Save')"
+  >
+    <button mat-menu-item (click)="setAction('Save as')">
+      <mat-icon class="material-symbols-rounded">file_copy</mat-icon>
+      <span>Save as…</span>
+    </button>
+    <button mat-menu-item (click)="setAction('Save and close')">
+      <mat-icon class="material-symbols-rounded">save_alt</mat-icon>
+      <span>Save and close</span>
+    </button>
+    <button mat-menu-item (click)="setAction('Save and new')">
+      <mat-icon class="material-symbols-rounded">note_add</mat-icon>
+      <span>Save and new</span>
+    </button>
+  </bt-split-button>
+
+  <bt-split-button
+    label="Delete"
+    icon="delete"
+    color="warn"
+    menuAriaLabel="Delete options"
+    (primaryAction)="setAction('Delete')"
+  >
+    <button mat-menu-item (click)="setAction('Delete forever')">
+      <mat-icon class="material-symbols-rounded">delete_forever</mat-icon>
+      <span>Delete forever</span>
+    </button>
+    <button mat-menu-item (click)="setAction('Move to trash')">
+      <mat-icon class="material-symbols-rounded">delete_sweep</mat-icon>
+      <span>Move to trash</span>
+    </button>
+  </bt-split-button>
+
+  <bt-split-button
+    label="Disabled"
+    icon="lock"
+    [disabled]="true"
+    (primaryAction)="setAction('Disabled')"
+  >
+    <button mat-menu-item>Unreachable</button>
+  </bt-split-button>
+
+  @if (lastAction(); as action) {
+    <p class="action-note">
+      Last action: <strong>{{ action }}</strong>
+    </p>
+  }
+</bt-gallery-demo-section>
