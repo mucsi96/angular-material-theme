@@ -65,49 +65,52 @@ export type SplitButtonColor = 'primary' | 'accent' | 'warn';
     </div>
   `,
   styles: `
+    /* All rules are nested under .bt-split-button so the selectors carry an
+       extra class of specificity. That's enough to beat Material's own
+       .mdc-button / .mat-mdc-button-base rules regardless of stylesheet
+       order — no !important, no ::ng-deep, no internal-class targeting. */
     .bt-split-button {
       display: inline-flex;
       align-items: stretch;
       vertical-align: middle;
-    }
 
-    /* Square off the touching edges via the documented MDC shape token so
-       there's no !important and no internal-selector targeting. */
-    .bt-split-button__primary {
-      --mdc-filled-button-container-shape: 0.5rem 0 0 0.5rem;
-      --mat-button-filled-container-shape: 0.5rem 0 0 0.5rem;
-    }
-
-    .bt-split-button__secondary {
-      --mdc-filled-button-container-shape: 0 0.5rem 0.5rem 0;
-      --mat-button-filled-container-shape: 0 0.5rem 0.5rem 0;
-      /* The chevron is the only content in this half, so neutralise the
-         leading-icon spacing Material applies for the icon-then-label
-         layout — otherwise the icon sits off-centre, pushed to the right. */
-      --mat-button-filled-icon-spacing: 0;
-      --mat-button-filled-icon-offset: 0;
-      min-width: 2.5rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-
-      .mat-icon {
-        margin: 0;
+      /* Square off the touching edges via the documented MDC shape token. */
+      .bt-split-button__primary {
+        --mdc-filled-button-container-shape: 0.5rem 0 0 0.5rem;
+        --mat-button-filled-container-shape: 0.5rem 0 0 0.5rem;
       }
-    }
 
-    .bt-split-button__divider {
-      align-self: stretch;
-      width: 1px;
-      flex-shrink: 0;
-      background-color: rgba(0, 0, 0, 0.25);
-      pointer-events: none;
-    }
+      .bt-split-button__secondary {
+        --mdc-filled-button-container-shape: 0 0.5rem 0.5rem 0;
+        --mat-button-filled-container-shape: 0 0.5rem 0.5rem 0;
+        /* The chevron is the only content in this half, so neutralise the
+           leading-icon spacing Material applies for the icon-then-label
+           layout — otherwise the icon sits off-centre, pushed to the right. */
+        --mat-button-filled-icon-spacing: 0;
+        --mat-button-filled-icon-offset: 0;
+        /* Tighten horizontal padding via the documented token rather than
+           direct padding declarations, which Material's own rules outrank. */
+        --mat-button-filled-horizontal-padding: 0.5rem;
+        min-width: 2.5rem;
 
-    /* Soften the divider when the widget is disabled, so it blends with the
-       disabled-button background instead of looking like a hard seam. */
-    .bt-split-button:has(.bt-split-button__primary:disabled)
+        .mat-icon {
+          margin: 0;
+        }
+      }
+
       .bt-split-button__divider {
-      background-color: var(--bt-outline);
+        align-self: stretch;
+        width: 1px;
+        flex-shrink: 0;
+        background-color: rgba(0, 0, 0, 0.25);
+        pointer-events: none;
+      }
+
+      /* Soften the divider when the widget is disabled, so it blends with the
+         disabled-button background instead of looking like a hard seam. */
+      &:has(.bt-split-button__primary:disabled) .bt-split-button__divider {
+        background-color: var(--bt-outline);
+      }
     }
   `,
 })
