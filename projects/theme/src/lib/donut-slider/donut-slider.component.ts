@@ -267,34 +267,40 @@ export class DonutSliderComponent {
 
   // --- Pointer drag --------------------------------------------------------
   //
-  // Pointer-capture on SVG elements is historically flaky across browsers, so
-  // once a drag starts we attach the move / up listeners to the *document*
-  // instead. That way the cursor can leave the dial (or move faster than the
-  // SVG hit-test reacts) without dropping events — the classic "sometimes
-  // works, sometimes not" desktop symptom.
+  // Position-based, roundSlider-style: every move reads the cursor's absolute
+  // angle on the dial and snaps the value to that angle. There's no delta
+  // accumulator, so missed or out-of-order events can't drift the dial out of
+  // sync with the cursor. Multi-turn support is layered on top: during a drag
+  // we count how many times the cursor crosses the 0°/360° seam and add that
+  // many `valuePerTurn` to the position-derived value. On initial click we
+  // pick the *nearest* turn so a tap near the seam never makes the value
+  // teleport across a whole revolution.
+  //
+  // Move and up listeners are attached to `document` (Chrome supports pointer
+  // events natively, but document-level listeners are immune to the cursor
+  // leaving the dial mid-drag — the classic "sometimes works on desktop"
+  // failure mode).
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly dragging = signal(false);
   private dragSvg: SVGElement | null = null;
   private dragPointerId: number | null = null;
-  private dragLastAngle: number | null = null;
+  /** Last absolute pointer angle in degrees [0, 360). */
+  private dragLastPointerAngle = 0;
+  /** Signed integer turn offset accumulated during the current drag. */
+  private dragTurnOffset = 0;
 
   private readonly onDocumentMove = (event: PointerEvent): void => {
-    if (
-      this.dragLastAngle === null ||
-      this.dragSvg === null ||
-      event.pointerId !== this.dragPointerId
-    )
-      return;
-    const current = pointerAngle(event, this.dragSvg);
-    let delta = current - this.dragLastAngle;
-    // Cross-the-seam normalisation so a clockwise jump from 350° to 10°
-    // counts as +20°, not −340°. This is what enables multi-turn drag.
-    if (delta > 180) delta -= 360;
-    if (delta < -180) delta += 360;
-    this.dragLastAngle = current;
-    this.bump((delta / 360) * this.valuePerTurn());
+    if (this.dragSvg === null || event.pointerId !== this.dragPointerId) return;
+    const angle = pointerAngle(event, this.dragSvg);
+    // Detect 0°/360° seam crossings to track full revolutions.
+    if (this.dragLastPointerAngle > 270 && angle < 90) this.dragTurnOffset += 1;
+    else if (this.dragLastPointerAngle < 90 && angle > 270)
+      this.dragTurnOffset -= 1;
+    this.dragLastPointerAngle = angle;
+    this.commit(this.angleToValue(angle, this.dragTurnOffset));
+    event.preventDefault();
   };
 
   private readonly onDocumentUp = (event: PointerEvent): void => {
@@ -312,39 +318,39 @@ export class DonutSliderComponent {
     // Ignore secondary mouse buttons so right-/middle-click don't start a drag.
     if (event.button !== undefined && event.button !== 0) return;
     const svg = event.currentTarget as SVGElement;
+    const angle = pointerAngle(event, svg);
+
+    // Pick the nearest-turn so a tap close to either side of the seam doesn't
+    // teleport the value across a whole `valuePerTurn`.
+    this.dragTurnOffset = nearestTurn(this.value(), angle, this.valuePerTurn());
+    this.dragLastPointerAngle = angle;
+
     this.dragSvg = svg;
     this.dragPointerId = event.pointerId;
-    this.dragLastAngle = pointerAngle(event, svg);
     this.dragging.set(true);
+
     this.document.addEventListener('pointermove', this.onDocumentMove);
     this.document.addEventListener('pointerup', this.onDocumentUp);
     this.document.addEventListener('pointercancel', this.onDocumentUp);
-    // Best-effort capture too, in case the browser honours it (gets us into
-    // the active-input mode for a11y tools that watch for it).
-    try {
-      svg.setPointerCapture(event.pointerId);
-    } catch {
-      /* not all SVG implementations support capture — fallback is the document listeners */
-    }
+
+    // Tap-to-jump: commit immediately so a click without drag still snaps the
+    // handle to where the user clicked (matches roundSlider behaviour).
+    this.commit(this.angleToValue(angle, this.dragTurnOffset));
     event.preventDefault();
   }
 
   private endDrag(): void {
-    if (this.dragLastAngle === null) return;
+    if (this.dragSvg === null) return;
     this.document.removeEventListener('pointermove', this.onDocumentMove);
     this.document.removeEventListener('pointerup', this.onDocumentUp);
     this.document.removeEventListener('pointercancel', this.onDocumentUp);
-    if (this.dragSvg && this.dragPointerId !== null) {
-      try {
-        this.dragSvg.releasePointerCapture(this.dragPointerId);
-      } catch {
-        /* may already be released */
-      }
-    }
     this.dragSvg = null;
     this.dragPointerId = null;
-    this.dragLastAngle = null;
     this.dragging.set(false);
+  }
+
+  private angleToValue(angle: number, turn: number): number {
+    return (turn + angle / 360) * this.valuePerTurn();
   }
 
   // --- Keyboard ------------------------------------------------------------
@@ -439,4 +445,18 @@ function pointerAngle(event: PointerEvent, svg: SVGElement): number {
   let angle = (Math.atan2(x, -y) * 180) / Math.PI;
   if (angle < 0) angle += 360;
   return angle;
+}
+
+/**
+ * Pick the integer turn whose `(turn + angle/360) * valuePerTurn` is closest
+ * to `currentValue`. Used on initial click so a tap near the 0°/360° seam
+ * commits to the same revolution the dial is already on, not a turn away.
+ */
+function nearestTurn(
+  currentValue: number,
+  pointerAngleDeg: number,
+  valuePerTurn: number,
+): number {
+  const angleValue = (pointerAngleDeg / 360) * valuePerTurn;
+  return Math.round((currentValue - angleValue) / valuePerTurn);
 }
