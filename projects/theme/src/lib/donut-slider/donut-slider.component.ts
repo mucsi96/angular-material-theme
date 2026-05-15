@@ -1,14 +1,18 @@
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   HostListener,
   Pipe,
   PipeTransform,
   ViewEncapsulation,
   computed,
+  inject,
   input,
   model,
   output,
+  signal,
 } from '@angular/core';
 
 // Tiny pure pipe used inline for the |abs filter — kept private to this file
@@ -61,15 +65,15 @@ class AbsPipe implements PipeTransform {
     '[attr.aria-disabled]': 'disabled() || null',
     '[style.--bt-donut-slider-size.px]': 'size()',
     '[class.bt-donut-slider--disabled]': 'disabled()',
+    '[class.bt-donut-slider--dragging]': 'dragging()',
   },
   template: `
     <svg
       class="bt-donut-slider__svg"
       [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
+      draggable="false"
       (pointerdown)="onPointerDown($event)"
-      (pointermove)="onPointerMove($event)"
-      (pointerup)="onPointerUp($event)"
-      (pointercancel)="onPointerUp($event)"
+      (dragstart)="$event.preventDefault()"
     >
       <circle
         class="bt-donut-slider__track"
@@ -130,8 +134,15 @@ class AbsPipe implements PipeTransform {
       display: block;
       width: 100%;
       height: auto;
+      // Disable both touch scrolling and the desktop browser's native drag
+      // image / text selection that competes with our pointer drag.
       touch-action: none;
+      -webkit-user-drag: none;
       cursor: grab;
+    }
+
+    .bt-donut-slider--dragging .bt-donut-slider__svg {
+      cursor: grabbing;
     }
 
     .bt-donut-slider--disabled .bt-donut-slider__svg {
@@ -255,20 +266,28 @@ export class DonutSliderComponent {
   });
 
   // --- Pointer drag --------------------------------------------------------
+  //
+  // Pointer-capture on SVG elements is historically flaky across browsers, so
+  // once a drag starts we attach the move / up listeners to the *document*
+  // instead. That way the cursor can leave the dial (or move faster than the
+  // SVG hit-test reacts) without dropping events — the classic "sometimes
+  // works, sometimes not" desktop symptom.
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
+
+  protected readonly dragging = signal(false);
+  private dragSvg: SVGElement | null = null;
+  private dragPointerId: number | null = null;
   private dragLastAngle: number | null = null;
 
-  protected onPointerDown(event: PointerEvent): void {
-    if (this.disabled()) return;
-    const svg = event.currentTarget as SVGElement;
-    svg.setPointerCapture(event.pointerId);
-    this.dragLastAngle = pointerAngle(event, svg);
-    event.preventDefault();
-  }
-
-  protected onPointerMove(event: PointerEvent): void {
-    if (this.dragLastAngle === null || this.disabled()) return;
-    const svg = event.currentTarget as SVGElement;
-    const current = pointerAngle(event, svg);
+  private readonly onDocumentMove = (event: PointerEvent): void => {
+    if (
+      this.dragLastAngle === null ||
+      this.dragSvg === null ||
+      event.pointerId !== this.dragPointerId
+    )
+      return;
+    const current = pointerAngle(event, this.dragSvg);
     let delta = current - this.dragLastAngle;
     // Cross-the-seam normalisation so a clockwise jump from 350° to 10°
     // counts as +20°, not −340°. This is what enables multi-turn drag.
@@ -276,12 +295,56 @@ export class DonutSliderComponent {
     if (delta < -180) delta += 360;
     this.dragLastAngle = current;
     this.bump((delta / 360) * this.valuePerTurn());
+  };
+
+  private readonly onDocumentUp = (event: PointerEvent): void => {
+    if (event.pointerId !== this.dragPointerId) return;
+    this.endDrag();
+  };
+
+  constructor() {
+    // Guarantee teardown if the host is destroyed mid-drag.
+    this.destroyRef.onDestroy(() => this.endDrag());
   }
 
-  protected onPointerUp(event: PointerEvent): void {
+  protected onPointerDown(event: PointerEvent): void {
+    if (this.disabled()) return;
+    // Ignore secondary mouse buttons so right-/middle-click don't start a drag.
+    if (event.button !== undefined && event.button !== 0) return;
+    const svg = event.currentTarget as SVGElement;
+    this.dragSvg = svg;
+    this.dragPointerId = event.pointerId;
+    this.dragLastAngle = pointerAngle(event, svg);
+    this.dragging.set(true);
+    this.document.addEventListener('pointermove', this.onDocumentMove);
+    this.document.addEventListener('pointerup', this.onDocumentUp);
+    this.document.addEventListener('pointercancel', this.onDocumentUp);
+    // Best-effort capture too, in case the browser honours it (gets us into
+    // the active-input mode for a11y tools that watch for it).
+    try {
+      svg.setPointerCapture(event.pointerId);
+    } catch {
+      /* not all SVG implementations support capture — fallback is the document listeners */
+    }
+    event.preventDefault();
+  }
+
+  private endDrag(): void {
     if (this.dragLastAngle === null) return;
-    (event.currentTarget as SVGElement).releasePointerCapture(event.pointerId);
+    this.document.removeEventListener('pointermove', this.onDocumentMove);
+    this.document.removeEventListener('pointerup', this.onDocumentUp);
+    this.document.removeEventListener('pointercancel', this.onDocumentUp);
+    if (this.dragSvg && this.dragPointerId !== null) {
+      try {
+        this.dragSvg.releasePointerCapture(this.dragPointerId);
+      } catch {
+        /* may already be released */
+      }
+    }
+    this.dragSvg = null;
+    this.dragPointerId = null;
     this.dragLastAngle = null;
+    this.dragging.set(false);
   }
 
   // --- Keyboard ------------------------------------------------------------
