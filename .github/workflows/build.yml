@@ -1,0 +1,110 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      has-next-version: ${{ steps.get_next_version.outputs.hasNextVersion }}
+      next-version: ${{ steps.get_next_version.outputs.version }}
+      next-tag: ${{ steps.get_next_version.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so get-next-version can read existing tags.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - name: Get next theme version
+        id: get_next_version
+        uses: mucsi96/get-next-version@main
+        with:
+          prefix: 'theme'
+          src: projects/theme
+      - name: Stamp theme version
+        if: steps.get_next_version.outputs.hasNextVersion == 'true'
+        env:
+          # `get-next-version` outputs a plain integer; expose it as
+          # `1.<n>.0` so the published package follows semver.
+          NEW_VERSION: 1.${{ steps.get_next_version.outputs.version }}.0
+        run: |
+          node -e "const fs=require('fs');const p=require('./projects/theme/package.json');p.version=process.env.NEW_VERSION;fs.writeFileSync('./projects/theme/package.json', JSON.stringify(p, null, 2) + '\n');"
+      - run: npm ci
+      - run: npm run build:theme
+      # Use the GitHub Pages base href so deep links and asset paths resolve.
+      - run: npm run build:gallery
+      - name: Upload gallery artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/gallery/browser
+      - name: Upload theme artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.get_next_version.outputs.hasNextVersion == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: theme-package
+          path: dist/theme
+
+  deploy-gallery:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  publish-npm:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.build.outputs.has-next-version == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # required to create the GitHub release / tag
+      id-token: write # required for npm Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      # Trusted Publishing needs npm CLI ≥ 11.5.1 to perform the OIDC
+      # handshake with the registry; Node 22 still ships with npm 10.x.
+      - run: npm install -g npm@latest
+      - uses: actions/download-artifact@v4
+        with:
+          name: theme-package
+          path: dist/theme
+      # No NODE_AUTH_TOKEN: npm picks up the OIDC token from the GitHub
+      # Actions environment (configured on npmjs.com under the package's
+      # "Trusted Publishers" tab → repo: mucsi96/angular-material-theme,
+      # workflow: build.yml). Provenance is generated automatically.
+      - name: Publish to npm
+        working-directory: dist/theme
+        run: npm publish --access public
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.build.outputs.next-tag }}
+          name: ${{ needs.build.outputs.next-tag }}
+          generate_release_notes: true

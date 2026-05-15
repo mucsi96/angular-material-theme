@@ -1,0 +1,55 @@
+<bt-gallery-page-header
+  title="Dialog"
+  subtitle="Modal surfaces for confirmation and short forms."
+/>
+
+<bt-gallery-demo-section
+  title="Confirm"
+  description="Destructive actions get a focused confirmation dialog."
+  code='<!-- Trigger -->
+<button mat-flat-button color="warn" (click)="openConfirm()">
+  <mat-icon class="material-symbols-rounded">delete</mat-icon>
+  Delete project
+</button>
+
+<!-- In your component -->
+private readonly dialog = inject(MatDialog);
+
+openConfirm(): void {
+  this.dialog.open(ConfirmDialogComponent, {
+    width: "400px",
+    data: { title: "Delete project?", message: "This cannot be undone." },
+  }).afterClosed().subscribe((ok) => { /* handle result */ });
+}'
+>
+  <button mat-flat-button color="warn" (click)="openConfirm()">
+    <mat-icon class="material-symbols-rounded">delete</mat-icon>
+    Delete project
+  </button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Form dialog"
+  description="A short form rendered inside a dialog with sticky actions."
+  code='<!-- Trigger -->
+<button mat-flat-button (click)="openForm()">
+  <mat-icon class="material-symbols-rounded">person_add</mat-icon>
+  Invite teammate
+</button>
+
+<!-- In your component -->
+openForm(): void {
+  this.dialog.open(FormDialogComponent, { width: "480px" })
+    .afterClosed()
+    .subscribe((result) => { /* { name, email, role } | undefined */ });
+}'
+>
+  <button mat-flat-button (click)="openForm()">
+    <mat-icon class="material-symbols-rounded">person_add</mat-icon>
+    Invite teammate
+  </button>
+</bt-gallery-demo-section>
+
+@if (lastResult(); as result) {
+  <p class="result">Last dialog result: <strong>{{ result }}</strong></p>
+}

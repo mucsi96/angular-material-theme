@@ -1,0 +1,241 @@
+// Component-level adjustments that build on top of mat.theme().
+//
+// These touch only Material's documented MAT_* / MDC_* CSS custom properties
+// and CDK overlay layers — no internal class selectors, no !important — so
+// they survive Material upgrades.
+
+@mixin apply() {
+  // --- Buttons ------------------------------------------------------------
+  --mat-button-filled-container-shape: 0.5rem;
+  --mat-button-outlined-container-shape: 0.5rem;
+  --mat-button-text-container-shape: 0.5rem;
+  --mat-button-protected-container-shape: 0.5rem;
+  --mdc-filled-button-container-shape: 0.5rem;
+  --mdc-outlined-button-container-shape: 0.5rem;
+  --mdc-text-button-container-shape: 0.5rem;
+  --mdc-protected-button-container-shape: 0.5rem;
+
+  // FAB
+  --mdc-fab-container-color: var(--bt-primary);
+  --mat-fab-foreground-color: var(--bt-text-on-brand);
+
+  // Icon button: keep the subtle hover-bg from ui-elements
+  --mat-icon-button-state-layer-color: var(--bt-text-default);
+  --mat-icon-button-hover-state-layer-opacity: 0.08;
+
+  // --- Form fields --------------------------------------------------------
+  --mdc-outlined-text-field-container-shape: 0.5rem;
+  --mdc-filled-text-field-container-shape: 0.5rem;
+  --mdc-outlined-text-field-outline-color: var(--bt-outline);
+  --mdc-outlined-text-field-hover-outline-color: var(--bt-text-muted);
+  --mdc-outlined-text-field-focus-outline-color: var(--bt-link);
+  --mdc-outlined-text-field-input-text-color: var(--bt-text-strong);
+  --mdc-outlined-text-field-label-text-color: var(--bt-text-muted);
+  --mdc-outlined-text-field-focus-label-text-color: var(--bt-link);
+  --mdc-filled-text-field-container-color: var(--bt-surface-2);
+
+  // --- Menu / select / autocomplete --------------------------------------
+  --mat-menu-container-color: var(--bt-surface-2);
+  --mat-menu-container-shape: 0.5rem;
+  --mat-menu-item-label-text-color: var(--bt-text-default);
+  --mat-menu-item-icon-color: var(--bt-text-muted);
+  --mat-menu-item-hover-state-layer-color: var(--bt-surface-3);
+  --mat-menu-item-focus-state-layer-color: var(--bt-surface-3);
+  --mat-select-panel-background-color: var(--bt-surface-2);
+
+  // --- Dialog -------------------------------------------------------------
+  --mat-dialog-container-color: var(--bt-surface-1);
+  --mat-dialog-subhead-color: var(--bt-text-strong);
+  --mat-dialog-supporting-text-color: var(--bt-text-default);
+  --mat-dialog-container-shape: 0.75rem;
+
+  // --- Toolbar / surface containers --------------------------------------
+  --mat-toolbar-container-background-color: var(--bt-surface-1);
+  --mat-toolbar-container-text-color: var(--bt-text-strong);
+
+  // --- Card ---------------------------------------------------------------
+  --mdc-elevated-card-container-color: var(--bt-surface-1);
+  --mdc-elevated-card-container-shape: 0.75rem;
+  --mdc-outlined-card-container-color: var(--bt-surface-1);
+  --mdc-outlined-card-outline-color: var(--bt-outline);
+  --mdc-outlined-card-container-shape: 0.75rem;
+
+  // --- Snackbar / chips ---------------------------------------------------
+  --mdc-snackbar-container-color: var(--bt-surface-2);
+  --mdc-snackbar-supporting-text-color: var(--bt-text-strong);
+  --mat-snack-bar-button-color: var(--bt-link);
+
+  // --- Table --------------------------------------------------------------
+  // Match the ui-elements table: uppercase header on surface-2, body rows on
+  // surface-1, hover lifts to surface-2, selected rows tint blue. Generous
+  // row height (≈52px) and 1.5rem horizontal padding — applied via tokens
+  // where possible, and via direct selectors for the cell padding which has
+  // no system-token equivalent in Material 21.
+  --mat-table-background-color: var(--bt-surface-1);
+  --mat-table-header-container-background-color: var(--bt-surface-2);
+  --mat-table-header-container-height: 3rem;
+  --mat-table-header-headline-color: var(--bt-text-muted);
+  --mat-table-header-headline-size: 0.75rem;
+  --mat-table-header-headline-weight: 600;
+  --mat-table-row-item-container-color: var(--bt-surface-1);
+  --mat-table-row-item-container-height: 3.5rem;
+  --mat-table-row-item-label-text-color: var(--bt-text-default);
+  --mat-table-row-item-label-text-size: 0.875rem;
+  --mat-table-row-item-outline-color: var(--bt-surface-2);
+
+  // --- Sort / paginator ---------------------------------------------------
+  --mat-sort-arrow-color: var(--bt-text-muted);
+  --mat-paginator-container-background-color: var(--bt-surface-1);
+  --mat-paginator-container-text-color: var(--bt-text-muted);
+
+  // --- Progress indicators -----------------------------------------------
+  // Both the linear progress bar and the circular spinner are painted in
+  // strong-text white, matching `<bt-bar-loader />`. Loading is a transient
+  // state, not a brand surface, so a single monochrome reads cleanest
+  // against the dark page.
+  --mat-progress-bar-active-indicator-color: var(--bt-text-strong);
+  --mat-progress-bar-track-color: var(--bt-surface-2);
+  --mat-progress-spinner-active-indicator-color: var(--bt-text-strong);
+
+  // --- Divider ------------------------------------------------------------
+  --mat-divider-color: var(--bt-outline);
+
+  // -----------------------------------------------------------------------
+  // Selectors below target the CDK overlay layer (snackbar) and the rendered
+  // mat-table — there's no system-token alternative for these.
+  // -----------------------------------------------------------------------
+
+  // Snackbar success / error variants. Toggle by passing
+  // `panelClass: ['bt-snackbar-success' | 'bt-snackbar-error']` (the
+  // `NotificationsService` does this for you).
+  //
+  // We override three layers because Material 21's snackbar resolves its
+  // background through whichever of these is defined first:
+  //   1. `--mdc-snackbar-container-color` (legacy MDC token)
+  //   2. `--mat-snack-bar-container-color` (M3 namespaced token)
+  //   3. `--mat-sys-inverse-surface` (system fallback — light on dark themes)
+  // and directly painting `.mdc-snackbar__surface` is the final safety net
+  // for versions that resolve the color before our token override applies.
+  .bt-snackbar-success {
+    --mdc-snackbar-container-color: var(--bt-success-soft);
+    --mat-snack-bar-container-color: var(--bt-success-soft);
+    --mat-sys-inverse-surface: var(--bt-success-soft);
+    --mdc-snackbar-supporting-text-color: var(--bt-success-on);
+    --mat-snack-bar-supporting-text-color: var(--bt-success-on);
+    --mat-sys-inverse-on-surface: var(--bt-success-on);
+    --mat-snack-bar-button-color: var(--bt-success-on);
+    --mat-sys-inverse-primary: var(--bt-success-on);
+
+    .mdc-snackbar__surface,
+    .mat-mdc-snackbar-surface {
+      background-color: var(--bt-success-soft);
+      color: var(--bt-success-on);
+    }
+    .mdc-snackbar__label,
+    .mat-mdc-snack-bar-label {
+      color: var(--bt-success-on);
+    }
+  }
+
+  .bt-snackbar-error {
+    --mdc-snackbar-container-color: var(--bt-error-soft);
+    --mat-snack-bar-container-color: var(--bt-error-soft);
+    --mat-sys-inverse-surface: var(--bt-error-soft);
+    --mdc-snackbar-supporting-text-color: var(--bt-error-on);
+    --mat-snack-bar-supporting-text-color: var(--bt-error-on);
+    --mat-sys-inverse-on-surface: var(--bt-error-on);
+    --mat-snack-bar-button-color: var(--bt-error-on);
+    --mat-sys-inverse-primary: var(--bt-error-on);
+
+    .mdc-snackbar__surface,
+    .mat-mdc-snackbar-surface {
+      background-color: var(--bt-error-soft);
+      color: var(--bt-error-on);
+    }
+    .mdc-snackbar__label,
+    .mat-mdc-snack-bar-label {
+      color: var(--bt-error-on);
+    }
+  }
+
+  // Inline (non-snackbar) notifications that consumers can render directly.
+  .bt-notification {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
+    background-color: var(--bt-surface-2);
+    color: var(--bt-text-strong);
+    border: 1px solid var(--bt-outline);
+
+    .mat-icon,
+    .material-symbols-rounded {
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      line-height: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    strong {
+      display: block;
+    }
+
+    &.bt-notification--success {
+      background-color: var(--bt-success-soft);
+      color: var(--bt-success-on);
+      border-color: var(--bt-success-soft);
+    }
+
+    &.bt-notification--error {
+      background-color: var(--bt-error-soft);
+      color: var(--bt-error-on);
+      border-color: var(--bt-error-soft);
+    }
+  }
+
+  // Material table tweaks not expressible via tokens: uppercase headers,
+  // generous horizontal padding, and the selected-row tint.
+  .mat-mdc-header-cell {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell,
+  .mat-mdc-footer-cell {
+    padding: 0 1.5rem;
+  }
+
+  .mat-mdc-row {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--bt-surface-2);
+    }
+
+    &[aria-selected='true'] {
+      background-color: hsl(215, 44%, 28%);
+      color: var(--bt-text-strong);
+
+      // The leading row-selector chevron switches to strong-text on selection.
+      .bt-row-selector {
+        color: var(--bt-text-strong);
+      }
+    }
+  }
+
+  // Row-selector chevron — leading column that signals row affordance.
+  .bt-row-selector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--bt-text-muted);
+    transition: color 0.2s ease;
+  }
+}

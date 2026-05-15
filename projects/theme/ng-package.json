@@ -1,0 +1,20 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/theme",
+  "assets": [
+    {
+      "input": "src/styles",
+      "glob": "**/*.scss",
+      "output": "./styles"
+    },
+    {
+      "input": "src/prebuilt",
+      "glob": "**/*.scss",
+      "output": "./prebuilt"
+    },
+    "./README.md"
+  ],
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  }
+}

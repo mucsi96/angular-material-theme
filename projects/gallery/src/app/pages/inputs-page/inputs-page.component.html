@@ -1,0 +1,182 @@
+<bt-gallery-page-header
+  title="Inputs"
+  subtitle="Form fields and the most common input controls."
+/>
+
+<bt-gallery-demo-section
+  title="Text fields"
+  description="Outlined appearance is the project default. Subscript area collapses when empty."
+  code='<mat-form-field>
+  <mat-label>Username</mat-label>
+  <input matInput placeholder="e.g. mucsi96" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Email</mat-label>
+  <input matInput type="email" [formControl]="emailControl" />
+  <mat-icon matSuffix class="material-symbols-rounded">mail</mat-icon>
+  &#64;if (emailControl.touched && emailControl.hasError("required")) {
+    <mat-error>Email is required</mat-error>
+  } &#64;else if (emailControl.hasError("email")) {
+    <mat-error>That does not look like an email</mat-error>
+  }
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Password</mat-label>
+  <input matInput type="password" />
+  <mat-hint>At least 12 characters</mat-hint>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Bio</mat-label>
+  <textarea matInput rows="3"></textarea>
+</mat-form-field>'
+>
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="e.g. mucsi96" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="email" [formControl]="emailControl" />
+    <mat-icon matSuffix class="material-symbols-rounded">mail</mat-icon>
+    @if (emailControl.touched && emailControl.hasError('required')) {
+      <mat-error>Email is required</mat-error>
+    } @else if (emailControl.hasError('email')) {
+      <mat-error>That doesn't look like an email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput type="password" />
+    <mat-hint>At least 12 characters</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Bio</mat-label>
+    <textarea matInput rows="3"></textarea>
+  </mat-form-field>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Select & autocomplete"
+  description="Dropdown surfaces inherit the menu styling."
+  [code]="selectCode"
+>
+  <mat-form-field>
+    <mat-label>Favorite fruit</mat-label>
+    <mat-select>
+      @for (fruit of fruits; track fruit) {
+        <mat-option [value]="fruit">{{ fruit }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Search fruits</mat-label>
+    <input
+      matInput
+      [matAutocomplete]="auto"
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (fruit of filteredFruits; track fruit) {
+        <mat-option [value]="fruit">{{ fruit }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Donut slider"
+  description="Mobile-first rotary input — drag in circles to add value, one full turn equals valuePerTurn. Multi-turn is unbounded by default."
+  code='<bt-donut-slider
+  label="Tip"
+  unit="%"
+  [(value)]="tipAmount"
+  [valuePerTurn]="20"
+  [step]="1"
+  [min]="0"
+  [max]="100"
+/>
+
+<bt-donut-slider
+  label="Brew time"
+  unit="s"
+  [(value)]="brewTime"
+  [valuePerTurn]="60"
+  [step]="5"
+  [min]="0"
+/>
+
+<bt-donut-slider
+  label="Temperature"
+  unit="°C"
+  [(value)]="tempC"
+  [valuePerTurn]="10"
+  [step]="1"
+/>'
+>
+  <bt-donut-slider
+    label="Tip"
+    unit="%"
+    [(value)]="tipAmount"
+    [valuePerTurn]="20"
+    [step]="1"
+    [min]="0"
+    [max]="100"
+  />
+
+  <bt-donut-slider
+    label="Brew time"
+    unit="s"
+    [(value)]="brewTime"
+    [valuePerTurn]="60"
+    [step]="5"
+    [min]="0"
+  />
+
+  <bt-donut-slider
+    label="Temperature"
+    unit="°C"
+    [(value)]="tempC"
+    [valuePerTurn]="10"
+    [step]="1"
+  />
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Toggles"
+  description="Checkboxes, radio groups and slide toggles."
+  code='<mat-checkbox checked>Subscribe to newsletter</mat-checkbox>
+<mat-checkbox>Receive product updates</mat-checkbox>
+<mat-checkbox disabled>Disabled option</mat-checkbox>
+
+<mat-radio-group value="medium">
+  <mat-radio-button value="small">Small</mat-radio-button>
+  <mat-radio-button value="medium">Medium</mat-radio-button>
+  <mat-radio-button value="large">Large</mat-radio-button>
+</mat-radio-group>
+
+<mat-slide-toggle checked>Notifications</mat-slide-toggle>
+<mat-slide-toggle>Beta features</mat-slide-toggle>'
+>
+  <div class="stack">
+    <mat-checkbox checked>Subscribe to newsletter</mat-checkbox>
+    <mat-checkbox>Receive product updates</mat-checkbox>
+    <mat-checkbox disabled>Disabled option</mat-checkbox>
+  </div>
+  <mat-radio-group class="stack" value="medium">
+    <mat-radio-button value="small">Small</mat-radio-button>
+    <mat-radio-button value="medium">Medium</mat-radio-button>
+    <mat-radio-button value="large">Large</mat-radio-button>
+  </mat-radio-group>
+  <div class="stack">
+    <mat-slide-toggle checked>Notifications</mat-slide-toggle>
+    <mat-slide-toggle>Beta features</mat-slide-toggle>
+  </div>
+</bt-gallery-demo-section>

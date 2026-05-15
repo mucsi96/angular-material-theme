@@ -1,0 +1,213 @@
+<bt-gallery-page-header
+  title="Buttons"
+  subtitle="All Material button variants and the floating action button, themed."
+/>
+
+<bt-gallery-demo-section
+  title="Filled buttons"
+  description="The default action style — strong contrast on the primary brand color."
+  code='<button mat-flat-button>Primary</button>
+<button mat-flat-button color="accent">Accent</button>
+<button mat-flat-button color="warn">Warn</button>
+<button mat-flat-button disabled>Disabled</button>
+<button mat-flat-button>
+  <mat-icon class="material-symbols-rounded">cloud_upload</mat-icon>
+  With icon
+</button>'
+>
+  <button mat-flat-button>Primary</button>
+  <button mat-flat-button color="accent">Accent</button>
+  <button mat-flat-button color="warn">Warn</button>
+  <button mat-flat-button disabled>Disabled</button>
+  <button mat-flat-button>
+    <mat-icon class="material-symbols-rounded">cloud_upload</mat-icon>
+    With icon
+  </button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Outlined buttons"
+  description="Lower-emphasis actions that still need clear affordance."
+  code='<button mat-stroked-button>Default</button>
+<button mat-stroked-button color="primary">Primary</button>
+<button mat-stroked-button color="warn">Warn</button>
+<button mat-stroked-button disabled>Disabled</button>'
+>
+  <button mat-stroked-button>Default</button>
+  <button mat-stroked-button color="primary">Primary</button>
+  <button mat-stroked-button color="warn">Warn</button>
+  <button mat-stroked-button disabled>Disabled</button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Text buttons"
+  description="The lightest treatment — pair with filled buttons inside dialogs."
+  code='<button mat-button>Default</button>
+<button mat-button color="primary">Primary</button>
+<button mat-button color="warn">Warn</button>
+<button mat-button disabled>Disabled</button>'
+>
+  <button mat-button>Default</button>
+  <button mat-button color="primary">Primary</button>
+  <button mat-button color="warn">Warn</button>
+  <button mat-button disabled>Disabled</button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Icon buttons"
+  description="Square hit area with a state layer on hover/focus."
+  code='<button mat-icon-button aria-label="Search" matTooltip="Search">
+  <mat-icon class="material-symbols-rounded">search</mat-icon>
+</button>
+<button mat-icon-button aria-label="Favorite" matTooltip="Favorite">
+  <mat-icon class="material-symbols-rounded">favorite</mat-icon>
+</button>
+<button mat-icon-button color="primary" aria-label="Edit" matTooltip="Edit">
+  <mat-icon class="material-symbols-rounded">edit</mat-icon>
+</button>
+<button mat-icon-button color="warn" aria-label="Delete" matTooltip="Delete">
+  <mat-icon class="material-symbols-rounded">delete</mat-icon>
+</button>
+<button mat-icon-button disabled aria-label="Disabled">
+  <mat-icon class="material-symbols-rounded">block</mat-icon>
+</button>'
+>
+  <button mat-icon-button aria-label="Search" matTooltip="Search">
+    <mat-icon class="material-symbols-rounded">search</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Favorite" matTooltip="Favorite">
+    <mat-icon class="material-symbols-rounded">favorite</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" aria-label="Edit" matTooltip="Edit">
+    <mat-icon class="material-symbols-rounded">edit</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" aria-label="Delete" matTooltip="Delete">
+    <mat-icon class="material-symbols-rounded">delete</mat-icon>
+  </button>
+  <button mat-icon-button disabled aria-label="Disabled">
+    <mat-icon class="material-symbols-rounded">block</mat-icon>
+  </button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Floating action buttons"
+  description="Surface a single primary action — try the extended FAB for context."
+  code='<button mat-fab aria-label="Add">
+  <mat-icon class="material-symbols-rounded">add</mat-icon>
+</button>
+<button mat-mini-fab aria-label="Add small">
+  <mat-icon class="material-symbols-rounded">add</mat-icon>
+</button>
+<button mat-fab extended>
+  <mat-icon class="material-symbols-rounded">add</mat-icon>
+  New item
+</button>'
+>
+  <button mat-fab aria-label="Add">
+    <mat-icon class="material-symbols-rounded">add</mat-icon>
+  </button>
+  <button mat-mini-fab aria-label="Add small">
+    <mat-icon class="material-symbols-rounded">add</mat-icon>
+  </button>
+  <button mat-fab extended>
+    <mat-icon class="material-symbols-rounded">add</mat-icon>
+    New item
+  </button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Split button"
+  description="Primary action on the left, secondary actions in a chevron-triggered menu."
+  code='<bt-split-button
+  label="Save"
+  icon="save"
+  menuAriaLabel="Save options"
+  (primaryAction)="save()"
+>
+  <button mat-menu-item (click)="saveAs()">
+    <mat-icon class="material-symbols-rounded">file_copy</mat-icon>
+    <span>Save as…</span>
+  </button>
+  <button mat-menu-item (click)="saveAndClose()">
+    <mat-icon class="material-symbols-rounded">save_alt</mat-icon>
+    <span>Save and close</span>
+  </button>
+  <button mat-menu-item (click)="saveAndNew()">
+    <mat-icon class="material-symbols-rounded">note_add</mat-icon>
+    <span>Save and new</span>
+  </button>
+</bt-split-button>
+
+<bt-split-button
+  label="Delete"
+  icon="delete"
+  color="warn"
+  menuAriaLabel="Delete options"
+  (primaryAction)="delete()"
+>
+  <button mat-menu-item>
+    <mat-icon class="material-symbols-rounded">delete_forever</mat-icon>
+    <span>Delete forever</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon class="material-symbols-rounded">delete_sweep</mat-icon>
+    <span>Move to trash</span>
+  </button>
+</bt-split-button>
+
+<bt-split-button label="Disabled" icon="lock" [disabled]="true">
+  <button mat-menu-item>Unreachable</button>
+</bt-split-button>'
+>
+  <bt-split-button
+    label="Save"
+    icon="save"
+    menuAriaLabel="Save options"
+    (primaryAction)="setAction('Save')"
+  >
+    <button mat-menu-item (click)="setAction('Save as')">
+      <mat-icon class="material-symbols-rounded">file_copy</mat-icon>
+      <span>Save as…</span>
+    </button>
+    <button mat-menu-item (click)="setAction('Save and close')">
+      <mat-icon class="material-symbols-rounded">save_alt</mat-icon>
+      <span>Save and close</span>
+    </button>
+    <button mat-menu-item (click)="setAction('Save and new')">
+      <mat-icon class="material-symbols-rounded">note_add</mat-icon>
+      <span>Save and new</span>
+    </button>
+  </bt-split-button>
+
+  <bt-split-button
+    label="Delete"
+    icon="delete"
+    color="warn"
+    menuAriaLabel="Delete options"
+    (primaryAction)="setAction('Delete')"
+  >
+    <button mat-menu-item (click)="setAction('Delete forever')">
+      <mat-icon class="material-symbols-rounded">delete_forever</mat-icon>
+      <span>Delete forever</span>
+    </button>
+    <button mat-menu-item (click)="setAction('Move to trash')">
+      <mat-icon class="material-symbols-rounded">delete_sweep</mat-icon>
+      <span>Move to trash</span>
+    </button>
+  </bt-split-button>
+
+  <bt-split-button
+    label="Disabled"
+    icon="lock"
+    [disabled]="true"
+    (primaryAction)="setAction('Disabled')"
+  >
+    <button mat-menu-item>Unreachable</button>
+  </bt-split-button>
+
+  @if (lastAction(); as action) {
+    <p class="action-note">
+      Last action: <strong>{{ action }}</strong>
+    </p>
+  }
+</bt-gallery-demo-section>

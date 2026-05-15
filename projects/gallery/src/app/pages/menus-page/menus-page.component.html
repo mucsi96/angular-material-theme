@@ -1,0 +1,116 @@
+<bt-gallery-page-header
+  title="Menus & Dropdowns"
+  subtitle="Trigger surfaces using mat-menu and a dropdown button pattern."
+/>
+
+<bt-gallery-demo-section
+  title="Dropdown menu"
+  description="Click the trigger to reveal a flyout menu with item icons."
+  code='<button mat-flat-button [matMenuTriggerFor]="basicMenu">
+  Actions
+  <mat-icon class="material-symbols-rounded" iconPositionEnd>expand_more</mat-icon>
+</button>
+<mat-menu #basicMenu="matMenu">
+  <button mat-menu-item>
+    <mat-icon class="material-symbols-rounded">edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon class="material-symbols-rounded">content_copy</mat-icon>
+    <span>Duplicate</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon class="material-symbols-rounded">share</mat-icon>
+    <span>Share</span>
+  </button>
+  <mat-divider />
+  <button mat-menu-item>
+    <mat-icon class="material-symbols-rounded">delete</mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu>'
+>
+  <button mat-flat-button [matMenuTriggerFor]="basicMenu">
+    Actions
+    <mat-icon class="material-symbols-rounded" iconPositionEnd>expand_more</mat-icon>
+  </button>
+  <mat-menu #basicMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon class="material-symbols-rounded">edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="material-symbols-rounded">content_copy</mat-icon>
+      <span>Duplicate</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="material-symbols-rounded">share</mat-icon>
+      <span>Share</span>
+    </button>
+    <mat-divider />
+    <button mat-menu-item>
+      <mat-icon class="material-symbols-rounded">delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </mat-menu>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Icon trigger"
+  description="The most compact trigger — a single icon button."
+  code='<button mat-icon-button aria-label="More" [matMenuTriggerFor]="iconMenu">
+  <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
+</button>
+<mat-menu #iconMenu="matMenu">
+  <button mat-menu-item>Pin</button>
+  <button mat-menu-item>Archive</button>
+  <button mat-menu-item disabled>Move (disabled)</button>
+</mat-menu>'
+>
+  <button mat-icon-button aria-label="More" [matMenuTriggerFor]="iconMenu">
+    <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
+  </button>
+  <mat-menu #iconMenu="matMenu">
+    <button mat-menu-item>Pin</button>
+    <button mat-menu-item>Archive</button>
+    <button mat-menu-item disabled>Move (disabled)</button>
+  </mat-menu>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Nested submenu"
+  description="Material menus support nested triggers natively."
+  code='<button mat-stroked-button [matMenuTriggerFor]="rootMenu">Open menu</button>
+<mat-menu #rootMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="formatMenu">Formatting</button>
+  <button mat-menu-item [matMenuTriggerFor]="alignMenu">Alignment</button>
+  <button mat-menu-item>Reset</button>
+</mat-menu>
+<mat-menu #formatMenu="matMenu">
+  <button mat-menu-item>Bold</button>
+  <button mat-menu-item>Italic</button>
+  <button mat-menu-item>Underline</button>
+</mat-menu>
+<mat-menu #alignMenu="matMenu">
+  <button mat-menu-item>Left</button>
+  <button mat-menu-item>Center</button>
+  <button mat-menu-item>Right</button>
+</mat-menu>'
+>
+  <button mat-stroked-button [matMenuTriggerFor]="rootMenu">Open menu</button>
+  <mat-menu #rootMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="formatMenu">Formatting</button>
+    <button mat-menu-item [matMenuTriggerFor]="alignMenu">Alignment</button>
+    <button mat-menu-item>Reset</button>
+  </mat-menu>
+  <mat-menu #formatMenu="matMenu">
+    <button mat-menu-item>Bold</button>
+    <button mat-menu-item>Italic</button>
+    <button mat-menu-item>Underline</button>
+  </mat-menu>
+  <mat-menu #alignMenu="matMenu">
+    <button mat-menu-item>Left</button>
+    <button mat-menu-item>Center</button>
+    <button mat-menu-item>Right</button>
+  </mat-menu>
+</bt-gallery-demo-section>

@@ -1,0 +1,36 @@
+<bt-gallery-page-header
+  title="Loaders"
+  subtitle="The signature 5-bar stretch loader plus Material's progress indicators, themed."
+/>
+
+<bt-gallery-demo-section
+  title="Bar loader"
+  description="Page-level indicator — five bars stretching in sequence. Reuses the ui-elements animation."
+  code="<bt-bar-loader />"
+>
+  <bt-bar-loader />
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Progress bar"
+  description="Material's linear progress, themed to strong-text white — matching the bar loader."
+  code='<mat-progress-bar mode="indeterminate" />
+<mat-progress-bar mode="determinate" value="62" />
+<mat-progress-bar mode="buffer" value="40" bufferValue="65" />'
+>
+  <mat-progress-bar mode="indeterminate" />
+  <mat-progress-bar mode="determinate" value="62" />
+  <mat-progress-bar mode="buffer" value="40" bufferValue="65" />
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Spinner"
+  description="Circular spinner — strong-text white, matching the linear progress bar and the bar loader."
+  code='<mat-progress-spinner mode="indeterminate" diameter="32" />
+<mat-progress-spinner mode="indeterminate" diameter="48" />
+<mat-progress-spinner mode="determinate" value="75" diameter="48" />'
+>
+  <mat-progress-spinner mode="indeterminate" diameter="32" />
+  <mat-progress-spinner mode="indeterminate" diameter="48" />
+  <mat-progress-spinner mode="determinate" value="75" diameter="48" />
+</bt-gallery-demo-section>

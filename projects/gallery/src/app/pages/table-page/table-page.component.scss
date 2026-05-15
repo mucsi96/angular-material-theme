@@ -1,0 +1,70 @@
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid var(--bt-outline);
+  background-color: var(--bt-surface-1);
+}
+
+table {
+  width: 100%;
+}
+
+// Strong primary-column treatment (bold names; bold numbers in the age col)
+.name-cell strong,
+.strong-cell {
+  color: var(--bt-text-strong);
+}
+
+td.num,
+th.num {
+  text-align: right;
+}
+
+// Narrow leading column for the row-selector chevron.
+td.selector-cell,
+th.selector-cell {
+  width: 3rem;
+  padding-right: 0;
+}
+
+.mat-mdc-row {
+  cursor: pointer;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 1.5rem;
+  padding: 0 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &[data-status='active'] {
+    background-color: var(--bt-success-soft);
+    color: var(--bt-success-on);
+  }
+
+  &[data-status='paused'] {
+    background-color: var(--bt-warn-soft);
+    color: hsl(0, 0%, 12%);
+  }
+
+  &[data-status='archived'] {
+    background-color: var(--bt-surface-2);
+    color: var(--bt-text-muted);
+  }
+}
+
+.selection-note {
+  width: 100%;
+  margin: 0.75rem 0 0;
+  color: var(--bt-text-muted);
+
+  strong {
+    color: var(--bt-text-strong);
+  }
+}

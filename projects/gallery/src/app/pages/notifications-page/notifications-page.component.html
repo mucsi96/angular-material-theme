@@ -1,0 +1,91 @@
+<bt-gallery-page-header
+  title="Notifications"
+  subtitle="Snackbar toasts and inline notification panels with success/error variants."
+/>
+
+<bt-gallery-demo-section
+  title="Snackbar"
+  description="Triggered via the NotificationsService — a thin wrapper that applies the success/error panel classes."
+  code='<!-- Triggers -->
+<button mat-flat-button color="primary" (click)="success()">
+  <mat-icon class="material-symbols-rounded">check_circle</mat-icon>
+  Show success
+</button>
+<button mat-flat-button color="warn" (click)="error()">
+  <mat-icon class="material-symbols-rounded">error</mat-icon>
+  Show error
+</button>
+
+<!-- In your component -->
+import { NotificationsService } from "@mucsi96/angular-material-theme";
+
+private readonly notifications = inject(NotificationsService);
+
+success(): void {
+  this.notifications.success("Project saved successfully.");
+}
+error(): void {
+  this.notifications.error("Could not reach the server. Please retry.");
+}'
+>
+  <button mat-flat-button color="primary" (click)="success()">
+    <mat-icon class="material-symbols-rounded">check_circle</mat-icon>
+    Show success
+  </button>
+  <button mat-flat-button color="warn" (click)="error()">
+    <mat-icon class="material-symbols-rounded">error</mat-icon>
+    Show error
+  </button>
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
+  title="Inline notifications"
+  description="Render alongside content when a toast feels too ephemeral."
+  code='<output class="bt-notification bt-notification--success">
+  <mat-icon class="material-symbols-rounded">check_circle</mat-icon>
+  <div>
+    <strong>Saved.</strong>
+    Your changes are now live for your teammates.
+  </div>
+</output>
+
+<output class="bt-notification bt-notification--error">
+  <mat-icon class="material-symbols-rounded">error</mat-icon>
+  <div>
+    <strong>Something went wrong.</strong>
+    We could not reach the server. Check your connection and retry.
+  </div>
+</output>
+
+<output class="bt-notification">
+  <mat-icon class="material-symbols-rounded">info</mat-icon>
+  <div>
+    <strong>Heads up.</strong>
+    A new theme version is available — pull to update.
+  </div>
+</output>'
+>
+  <div class="notifications">
+    <output class="bt-notification bt-notification--success">
+      <mat-icon class="material-symbols-rounded">check_circle</mat-icon>
+      <div>
+        <strong>Saved.</strong>
+        Your changes are now live for your teammates.
+      </div>
+    </output>
+    <output class="bt-notification bt-notification--error">
+      <mat-icon class="material-symbols-rounded">error</mat-icon>
+      <div>
+        <strong>Something went wrong.</strong>
+        We couldn't reach the server. Check your connection and retry.
+      </div>
+    </output>
+    <output class="bt-notification">
+      <mat-icon class="material-symbols-rounded">info</mat-icon>
+      <div>
+        <strong>Heads up.</strong>
+        A new theme version is available — pull to update.
+      </div>
+    </output>
+  </div>
+</bt-gallery-demo-section>

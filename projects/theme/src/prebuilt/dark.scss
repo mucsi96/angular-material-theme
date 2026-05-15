@@ -1,0 +1,7 @@
+// Pre-built CSS entry point. Compile this file to `dark.css` to ship a
+// drop-in stylesheet for consumers that don't want to integrate SCSS.
+@use '../styles' as bt;
+
+html {
+  @include bt.theme();
+}
