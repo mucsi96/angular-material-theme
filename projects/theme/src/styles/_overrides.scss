@@ -89,14 +89,13 @@
   --mat-paginator-container-text-color: var(--bt-text-muted);
 
   // --- Progress indicators -----------------------------------------------
-  // Match the filled-button surface: the circular spinner uses the brand
-  // `--bt-primary` blue so the same colour reads as "the app is doing
-  // something." The linear progress bar uses strong-text white instead —
-  // it's already a high-contrast bar shape and reads cleanest against the
-  // dark page surface when it's monochrome.
+  // Both the linear progress bar and the circular spinner are painted in
+  // strong-text white, matching `<bt-bar-loader />`. Loading is a transient
+  // state, not a brand surface, so a single monochrome reads cleanest
+  // against the dark page.
   --mdc-linear-progress-active-indicator-color: var(--bt-text-strong);
   --mdc-linear-progress-track-color: var(--bt-surface-2);
-  --mdc-circular-progress-active-indicator-color: var(--bt-primary);
+  --mdc-circular-progress-active-indicator-color: var(--bt-text-strong);
 
   // --- Divider ------------------------------------------------------------
   --mat-divider-color: var(--bt-outline);
