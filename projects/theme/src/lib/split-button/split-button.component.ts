@@ -71,8 +71,8 @@ export type SplitButtonColor = 'primary' | 'accent' | 'warn';
       vertical-align: middle;
     }
 
-    // Square off the touching edges via the documented MDC shape token so
-    // there's no !important and no internal-selector targeting.
+    /* Square off the touching edges via the documented MDC shape token so
+       there's no !important and no internal-selector targeting. */
     .bt-split-button__primary {
       --mdc-filled-button-container-shape: 0.5rem 0 0 0.5rem;
       --mat-button-filled-container-shape: 0.5rem 0 0 0.5rem;
@@ -81,9 +81,9 @@ export type SplitButtonColor = 'primary' | 'accent' | 'warn';
     .bt-split-button__secondary {
       --mdc-filled-button-container-shape: 0 0.5rem 0.5rem 0;
       --mat-button-filled-container-shape: 0 0.5rem 0.5rem 0;
-      // The chevron is the only content in this half, so neutralise the
-      // leading-icon spacing Material applies for the icon-then-label
-      // layout — otherwise the icon sits off-centre, pushed to the right.
+      /* The chevron is the only content in this half, so neutralise the
+         leading-icon spacing Material applies for the icon-then-label
+         layout — otherwise the icon sits off-centre, pushed to the right. */
       --mat-button-filled-icon-spacing: 0;
       --mat-button-filled-icon-offset: 0;
       min-width: 2.5rem;
@@ -103,8 +103,8 @@ export type SplitButtonColor = 'primary' | 'accent' | 'warn';
       pointer-events: none;
     }
 
-    // Soften the divider when the widget is disabled, so it blends with the
-    // disabled-button background instead of looking like a hard seam.
+    /* Soften the divider when the widget is disabled, so it blends with the
+       disabled-button background instead of looking like a hard seam. */
     .bt-split-button:has(.bt-split-button__primary:disabled)
       .bt-split-button__divider {
       background-color: var(--bt-outline);

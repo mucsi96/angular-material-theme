@@ -120,8 +120,8 @@ import {
       display: block;
       width: 100%;
       height: auto;
-      // Disable both touch scrolling and the desktop browser's native drag
-      // image / text selection that competes with our pointer drag.
+      /* Disable both touch scrolling and the desktop browser's native drag
+         image / text selection that competes with our pointer drag. */
       touch-action: none;
       -webkit-user-drag: none;
       cursor: grab;
@@ -153,10 +153,10 @@ import {
       stroke-width: 2;
     }
 
-    // Center the readout over the SVG so the dial doubles as its own label.
-    // pointer-events: none keeps the text from intercepting the drag. The
-    // readout sits inside the donut hole even on small dials because the
-    // font sizes scale with the configured dial size.
+    /* Center the readout over the SVG so the dial doubles as its own label.
+       pointer-events: none keeps the text from intercepting the drag. The
+       readout sits inside the donut hole even on small dials because the
+       font sizes scale with the configured dial size. */
     .bt-donut-slider__readout {
       position: absolute;
       inset: 0;
@@ -168,7 +168,7 @@ import {
       line-height: 1.1;
       text-align: center;
       pointer-events: none;
-      // Keep the readout inside the donut hole — back off from the ring.
+      /* Keep the readout inside the donut hole — back off from the ring. */
       padding: 22%;
     }
 
