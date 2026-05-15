@@ -1,8 +1,61 @@
-# angular-material-theme
+# @mucsi96/angular-material-theme
 
 A future-proof, opinionated **dark Angular Material 21+ theme** inspired by
 [`mucsi96/ui-elements`](https://github.com/mucsi96/ui-elements), packaged as
 [`@mucsi96/angular-material-theme`](./projects/theme/README.md) on npm.
+
+- Live gallery: <https://mucsi96.github.io/angular-material-theme/>
+- Package docs: [`projects/theme/README.md`](./projects/theme/README.md)
+
+## Getting started
+
+The theme ships as SCSS plus a couple of small Angular helpers. Drop it
+into any Angular 21+ application in three steps.
+
+### 1. Install
+
+Install the package alongside the Angular Material peers.
+
+```bash
+npm install @mucsi96/angular-material-theme @angular/material @angular/cdk
+```
+
+### 2. Apply the theme
+
+Add the mixin to your global stylesheet (e.g. `src/styles.scss`). That
+single call emits the `--bt-*` design tokens, runs `mat.theme()`, and
+re-maps Material's M3 system tokens onto the ui-elements palette.
+
+```scss
+@use '@mucsi96/angular-material-theme/styles' as bt;
+
+html {
+  @include bt.theme();
+}
+```
+
+### 3. (Optional) wire up the providers
+
+In `app.config.ts`, register the opinionated defaults (outlined form
+fields, accessible disabled buttons) and you're done.
+
+```ts
+import { provideAngularMaterialTheme } from '@mucsi96/angular-material-theme';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideAnimationsAsync(),
+    provideAngularMaterialTheme(),
+  ],
+};
+```
+
+### From there
+
+- Use any `--bt-*` token from your own styles — `background-color: var(--bt-surface-1);`.
+- Drop in `<bt-bar-loader />` for page-level loading and `NotificationsService.success() / .error()` for toasts.
+- Use the `.bt-notification` / `.bt-notification--success` / `.bt-notification--error` classes for inline alerts.
+- Override any Material token in the same selector: `--mat-sys-tertiary: var(--bt-success);`.
 
 ## Repository layout
 
@@ -33,7 +86,7 @@ npm run build:gallery     # static site in dist/gallery (with /angular-material-
 
 ## Continuous delivery
 
-`/.github/workflows/build.yml` runs on every push:
+`.github/workflows/build.yml` runs on every push:
 
 - Builds the theme library and the gallery.
 - On `main`, deploys the gallery to **GitHub Pages**.
@@ -53,7 +106,7 @@ The npm package needs to be configured for Trusted Publishing on
 - Workflow: `build.yml`
 - Environment: (leave blank)
 
-See [`projects/theme/README.md`](./projects/theme/README.md) for usage in a
-consuming application.
+See [`projects/theme/README.md`](./projects/theme/README.md) for full
+usage in a consuming application.
 
 [tp]: https://docs.npmjs.com/trusted-publishers
