@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { DonutSliderComponent } from '@mucsi96/angular-material-theme';
 
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { DemoSectionComponent } from '../../components/demo-section/demo-section.component';
@@ -29,6 +30,7 @@ import { DemoSectionComponent } from '../../components/demo-section/demo-section
     MatRadioModule,
     MatSlideToggleModule,
     MatIconModule,
+    DonutSliderComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './inputs-page.component.html',
@@ -60,4 +62,9 @@ export class InputsPageComponent {
     const q = this.query().toLowerCase();
     return q ? this.fruits.filter((f) => f.toLowerCase().includes(q)) : this.fruits;
   }
+
+  // Donut slider demo state.
+  protected readonly tipAmount = signal<number>(15);
+  protected readonly brewTime = signal<number>(180);
+  protected readonly tempC = signal<number>(20);
 }

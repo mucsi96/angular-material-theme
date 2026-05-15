@@ -65,6 +65,38 @@
 </bt-gallery-demo-section>
 
 <bt-gallery-demo-section
+  title="Donut slider"
+  description="Mobile-first rotary input — drag in circles to add value, one full turn equals valuePerTurn. Multi-turn is unbounded by default."
+>
+  <bt-donut-slider
+    label="Tip"
+    unit="%"
+    [(value)]="tipAmount"
+    [valuePerTurn]="20"
+    [step]="1"
+    [min]="0"
+    [max]="100"
+  />
+
+  <bt-donut-slider
+    label="Brew time"
+    unit="s"
+    [(value)]="brewTime"
+    [valuePerTurn]="60"
+    [step]="5"
+    [min]="0"
+  />
+
+  <bt-donut-slider
+    label="Temperature"
+    unit="°C"
+    [(value)]="tempC"
+    [valuePerTurn]="10"
+    [step]="1"
+  />
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
   title="Toggles"
   description="Checkboxes, radio groups and slide toggles."
 >
