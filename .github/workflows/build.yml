@@ -27,7 +27,9 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Node 24 ships with npm 11.x, which Trusted Publishing
+          # requires (≥ 11.5.1) for the OIDC handshake.
+          node-version: 24
           cache: npm
           registry-url: https://registry.npmjs.org
       - name: Get next theme version
@@ -85,12 +87,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Node 24 ships with npm 11.x, which Trusted Publishing
+          # requires (≥ 11.5.1) for the OIDC handshake.
+          node-version: 24
           cache: npm
           registry-url: https://registry.npmjs.org
-      # Trusted Publishing needs npm CLI ≥ 11.5.1 to perform the OIDC
-      # handshake with the registry; Node 22 still ships with npm 10.x.
-      - run: npm install -g npm@latest
       - uses: actions/download-artifact@v4
         with:
           name: theme-package
