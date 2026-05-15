@@ -39,7 +39,9 @@ jobs:
       - name: Stamp theme version
         if: steps.get_next_version.outputs.hasNextVersion == 'true'
         env:
-          NEW_VERSION: ${{ steps.get_next_version.outputs.version }}
+          # `get-next-version` outputs a plain integer; expose it as
+          # `1.<n>.0` so the published package follows semver.
+          NEW_VERSION: 1.${{ steps.get_next_version.outputs.version }}.0
         run: |
           node -e "const fs=require('fs');const p=require('./projects/theme/package.json');p.version=process.env.NEW_VERSION;fs.writeFileSync('./projects/theme/package.json', JSON.stringify(p, null, 2) + '\n');"
       - run: npm ci
