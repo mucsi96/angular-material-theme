@@ -36,7 +36,7 @@ jobs:
         id: get_next_version
         uses: mucsi96/get-next-version@main
         with:
-          prefix: 'v'
+          prefix: 'theme'
           src: projects/theme
       - name: Stamp theme version
         if: steps.get_next_version.outputs.hasNextVersion == 'true'
