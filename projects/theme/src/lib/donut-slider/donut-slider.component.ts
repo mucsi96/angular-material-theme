@@ -126,7 +126,7 @@ class AbsPipe implements PipeTransform {
     }
 
     .bt-donut-slider:focus-visible .bt-donut-slider__handle {
-      stroke: var(--bt-link);
+      stroke: var(--bt-primary);
       stroke-width: 3;
     }
 
@@ -157,13 +157,13 @@ class AbsPipe implements PipeTransform {
 
     .bt-donut-slider__progress {
       fill: none;
-      stroke: var(--bt-link);
+      stroke: var(--bt-primary);
       stroke-linecap: round;
     }
 
     .bt-donut-slider__handle {
       fill: var(--bt-text-strong);
-      stroke: var(--bt-link);
+      stroke: var(--bt-primary);
       stroke-width: 2;
     }
 

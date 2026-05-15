@@ -6,6 +6,17 @@
 <bt-gallery-demo-section
   title="Confirm"
   description="Destructive actions get a focused confirmation dialog."
+  code='// In your component
+private readonly dialog = inject(MatDialog);
+
+openConfirm(): void {
+  const ref = this.dialog.open(ConfirmDialogComponent, {
+    width: "400px",
+    data: { title: "Delete project?", message: "This cannot be undone." },
+  });
+  ref.afterClosed().subscribe((ok) => { /* handle result */ });
+}'
+  codeLang="TypeScript"
 >
   <button mat-flat-button color="warn" (click)="openConfirm()">
     <mat-icon class="material-symbols-rounded">delete</mat-icon>
@@ -16,6 +27,10 @@
 <bt-gallery-demo-section
   title="Form dialog"
   description="A short form rendered inside a dialog with sticky actions."
+  code='this.dialog.open(FormDialogComponent, { width: "480px" })
+  .afterClosed()
+  .subscribe((result) => { /* { name, email, role } | undefined */ });'
+  codeLang="TypeScript"
 >
   <button mat-flat-button (click)="openForm()">
     <mat-icon class="material-symbols-rounded">person_add</mat-icon>

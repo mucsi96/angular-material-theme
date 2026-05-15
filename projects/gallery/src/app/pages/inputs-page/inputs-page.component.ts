@@ -67,4 +67,26 @@ export class InputsPageComponent {
   protected readonly tipAmount = signal<number>(15);
   protected readonly brewTime = signal<number>(180);
   protected readonly tempC = signal<number>(20);
+
+  // Snippets that contain `{{ }}` live as TS strings — embedding them as
+  // attribute values in the template would make Angular try to interpolate
+  // the curly braces.
+  protected readonly selectCode = `<mat-form-field>
+  <mat-label>Favorite fruit</mat-label>
+  <mat-select>
+    @for (fruit of fruits; track fruit) {
+      <mat-option [value]="fruit">{{ fruit }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Search fruits</mat-label>
+  <input matInput [matAutocomplete]="auto" />
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (fruit of filteredFruits; track fruit) {
+      <mat-option [value]="fruit">{{ fruit }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>`;
 }

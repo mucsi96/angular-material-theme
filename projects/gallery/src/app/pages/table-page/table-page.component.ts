@@ -57,6 +57,32 @@ export class TablePageComponent {
   protected readonly rows = signal<readonly Person[]>(SEED);
   protected readonly selectedRow = signal<Person | undefined>(undefined);
 
+  protected readonly tableCode = `<div class="table-wrapper">
+  <table mat-table matSort [dataSource]="rows()">
+    <ng-container matColumnDef="selector">
+      <th mat-header-cell *matHeaderCellDef class="selector-cell"></th>
+      <td mat-cell *matCellDef="let row" class="selector-cell">
+        <span class="bt-row-selector"><mat-icon>chevron_right</mat-icon></span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Person</th>
+      <td mat-cell *matCellDef="let row"><strong>{{ row.name }}</strong></td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">Age</th>
+      <td mat-cell *matCellDef="let row" class="num">{{ row.age }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"
+        [attr.aria-selected]="row === selectedRow()"
+        (click)="select(row)"></tr>
+  </table>
+</div>`;
+
   protected select(row: Person): void {
     this.selectedRow.update((current) => (current === row ? undefined : row));
   }

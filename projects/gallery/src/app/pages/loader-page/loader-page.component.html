@@ -6,15 +6,17 @@
 <bt-gallery-demo-section
   title="Bar loader"
   description="Page-level indicator — five bars stretching in sequence. Reuses the ui-elements animation."
+  code="<bt-bar-loader />"
 >
   <bt-bar-loader />
-  <bt-bar-loader [color]="'var(--bt-link)'" label="Loading projects" />
-  <bt-bar-loader [color]="'var(--bt-success-soft)'" label="Saving" />
 </bt-gallery-demo-section>
 
 <bt-gallery-demo-section
   title="Progress bar"
-  description="Material's linear progress, themed onto the link blue."
+  description="Material's linear progress, themed to strong-text white for high contrast."
+  code='<mat-progress-bar mode="indeterminate" />
+<mat-progress-bar mode="determinate" value="62" />
+<mat-progress-bar mode="buffer" value="40" bufferValue="65" />'
 >
   <mat-progress-bar mode="indeterminate" />
   <mat-progress-bar mode="determinate" value="62" />
@@ -23,7 +25,9 @@
 
 <bt-gallery-demo-section
   title="Spinner"
-  description="Inline circular spinner — good for buttons and table cells."
+  description="Circular spinner — uses the brand primary blue, so the same colour reads as the app working."
+  code='<mat-progress-spinner mode="indeterminate" diameter="32" />
+<mat-progress-spinner mode="determinate" value="75" diameter="48" />'
 >
   <mat-progress-spinner mode="indeterminate" diameter="32" />
   <mat-progress-spinner mode="indeterminate" diameter="48" />
