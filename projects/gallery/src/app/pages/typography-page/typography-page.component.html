@@ -27,9 +27,20 @@
   title="Titles, body & labels"
   description="The bread and butter — body text, list items, and form labels."
   code='<div class="mat-title-large">Title large</div>
-<div class="mat-body-large">Body large — long-form copy reads comfortably.</div>
-<div class="mat-body-medium">Body medium — the default for most paragraphs.</div>
-<div class="mat-label-large">LABEL LARGE</div>'
+<div class="mat-title-medium">Title medium</div>
+<div class="mat-title-small">Title small</div>
+<div class="mat-body-large">
+  Body large — long-form copy reads comfortably at this size.
+</div>
+<div class="mat-body-medium">
+  Body medium — the default for most paragraphs.
+</div>
+<div class="mat-body-small">
+  Body small — captions, footnotes and dense tables.
+</div>
+<div class="mat-label-large">LABEL LARGE</div>
+<div class="mat-label-medium">LABEL MEDIUM</div>
+<div class="mat-label-small">LABEL SMALL</div>'
 >
   <div class="type-stack">
     <div class="mat-title-large">Title large</div>
@@ -53,11 +64,13 @@
 <bt-gallery-demo-section
   title="Inline elements"
   description="Anchors, code spans and emphasis nested in body copy."
-  code='<p>
+  code='<p class="prose">
   A future-proof Angular Material theme should feel
-  <strong>opinionated but extensible</strong>. Override any
+  <strong>opinionated but extensible</strong>. You can override any
   <code>--mat-sys-*</code> token from the
-  <a href="https://material.angular.dev">official docs</a>
+  <a href="https://material.angular.dev" target="_blank" rel="noopener">
+    official documentation
+  </a>
   without forking the theme.
 </p>'
 >

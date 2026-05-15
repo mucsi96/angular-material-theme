@@ -58,22 +58,48 @@ export class TablePageComponent {
   protected readonly selectedRow = signal<Person | undefined>(undefined);
 
   protected readonly tableCode = `<div class="table-wrapper">
-  <table mat-table matSort [dataSource]="rows()">
+  <table mat-table matSort [dataSource]="rows()" (matSortChange)="sortBy($event)">
     <ng-container matColumnDef="selector">
       <th mat-header-cell *matHeaderCellDef class="selector-cell"></th>
       <td mat-cell *matCellDef="let row" class="selector-cell">
-        <span class="bt-row-selector"><mat-icon>chevron_right</mat-icon></span>
+        <span class="bt-row-selector" aria-hidden="true">
+          <mat-icon class="material-symbols-rounded">chevron_right</mat-icon>
+        </span>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Person</th>
-      <td mat-cell *matCellDef="let row"><strong>{{ row.name }}</strong></td>
+      <td mat-cell *matCellDef="let row" class="name-cell">
+        <strong>{{ row.name }}</strong>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="interest">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Most interest in</th>
+      <td mat-cell *matCellDef="let row">{{ row.interest }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="owner">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
+      <td mat-cell *matCellDef="let row">{{ row.owner }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="badge" [attr.data-status]="row.status">{{ row.status }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updated">
+      <th mat-header-cell *matHeaderCellDef>Last update</th>
+      <td mat-cell *matCellDef="let row">{{ row.updated }}</td>
     </ng-container>
 
     <ng-container matColumnDef="age">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">Age</th>
-      <td mat-cell *matCellDef="let row" class="num">{{ row.age }}</td>
+      <td mat-cell *matCellDef="let row" class="num strong-cell">{{ row.age }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
