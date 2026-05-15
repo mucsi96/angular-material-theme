@@ -37,9 +37,23 @@ npm run build:gallery     # static site in dist/gallery (with /angular-material-
 
 - Builds the theme library and the gallery.
 - On `main`, deploys the gallery to **GitHub Pages**.
-- On `main`, publishes the theme to **npm** when `projects/theme/package.json`
-  has a new version (the workflow checks `npm view` first, so re-running on the
-  same version is a no-op).
+- On `main`, derives the next theme version from existing `theme-*` git
+  tags and the conventional commits touching `projects/theme` (via
+  [`mucsi96/get-next-version`](https://github.com/mucsi96/get-next-version)),
+  publishes it to **npm** using [Trusted Publishing][tp] (OIDC — no
+  long-lived `NPM_TOKEN` secret), and creates a matching GitHub release
+  with auto-generated notes. A push without library changes is a no-op.
+
+The npm package needs to be configured for Trusted Publishing on
+[npmjs.com](https://www.npmjs.com/) under the package's
+**Settings → Trusted Publishers** tab:
+
+- Publisher: GitHub Actions
+- Repository: `mucsi96/angular-material-theme`
+- Workflow: `build.yml`
+- Environment: (leave blank)
 
 See [`projects/theme/README.md`](./projects/theme/README.md) for usage in a
 consuming application.
+
+[tp]: https://docs.npmjs.com/trusted-publishers

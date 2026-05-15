@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # required to create the GitHub release / tag
-      id-token: write # required for npm provenance
+      id-token: write # required for npm Trusted Publishing (OIDC)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -86,15 +86,20 @@ jobs:
           node-version: 22
           cache: npm
           registry-url: https://registry.npmjs.org
+      # Trusted Publishing needs npm CLI ≥ 11.5.1 to perform the OIDC
+      # handshake with the registry; Node 22 still ships with npm 10.x.
+      - run: npm install -g npm@latest
       - uses: actions/download-artifact@v4
         with:
           name: theme-package
           path: dist/theme
+      # No NODE_AUTH_TOKEN: npm picks up the OIDC token from the GitHub
+      # Actions environment (configured on npmjs.com under the package's
+      # "Trusted Publishers" tab → repo: mucsi96/angular-material-theme,
+      # workflow: build.yml). Provenance is generated automatically.
       - name: Publish to npm
         working-directory: dist/theme
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
