@@ -68,61 +68,65 @@ class AbsPipe implements PipeTransform {
     '[class.bt-donut-slider--dragging]': 'dragging()',
   },
   template: `
-    <svg
-      class="bt-donut-slider__svg"
-      [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
-      draggable="false"
-      (pointerdown)="onPointerDown($event)"
-      (dragstart)="$event.preventDefault()"
-    >
-      <circle
-        class="bt-donut-slider__track"
-        [attr.cx]="center()"
-        [attr.cy]="center()"
-        [attr.r]="radius()"
-        [attr.stroke-width]="stroke()"
-      />
-      @if (turnAngle() > 0.5) {
-        <path
-          class="bt-donut-slider__progress"
-          [attr.d]="arcPath()"
+    <div class="bt-donut-slider__dial">
+      <svg
+        class="bt-donut-slider__svg"
+        [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
+        draggable="false"
+        (pointerdown)="onPointerDown($event)"
+        (dragstart)="$event.preventDefault()"
+      >
+        <circle
+          class="bt-donut-slider__track"
+          [attr.cx]="center()"
+          [attr.cy]="center()"
+          [attr.r]="radius()"
           [attr.stroke-width]="stroke()"
         />
-      }
-      <circle
-        class="bt-donut-slider__handle"
-        [attr.cx]="handle().x"
-        [attr.cy]="handle().y"
-        [attr.r]="stroke() / 2 + 2"
-      />
-    </svg>
-    <div class="bt-donut-slider__readout" aria-hidden="true">
-      @if (label()) {
-        <span class="bt-donut-slider__label">{{ label() }}</span>
-      }
-      <span class="bt-donut-slider__value">
-        {{ displayValue() }}<!--
-        -->@if (unit(); as u) {<span class="bt-donut-slider__unit">{{ u }}</span>}
-      </span>
-      @if (turnCount() !== 0) {
-        <span class="bt-donut-slider__turns">
-          {{ turnCount() | btAbs }}
-          {{ turnCount() === 1 || turnCount() === -1 ? 'turn' : 'turns' }}
+        @if (turnAngle() > 0.5) {
+          <path
+            class="bt-donut-slider__progress"
+            [attr.d]="arcPath()"
+            [attr.stroke-width]="stroke()"
+          />
+        }
+        <circle
+          class="bt-donut-slider__handle"
+          [attr.cx]="handle().x"
+          [attr.cy]="handle().y"
+          [attr.r]="stroke() / 2 + 2"
+        />
+      </svg>
+      <div class="bt-donut-slider__readout" aria-hidden="true">
+        @if (label()) {
+          <span class="bt-donut-slider__label">{{ label() }}</span>
+        }
+        <span class="bt-donut-slider__value">
+          {{ displayValue() }}<!--
+          -->@if (unit(); as u) {<span class="bt-donut-slider__unit">{{ u }}</span>}
         </span>
-      }
+        @if (turnCount() !== 0) {
+          <span class="bt-donut-slider__turns">
+            {{ turnCount() | btAbs }}
+            {{ turnCount() === 1 || turnCount() === -1 ? 'turn' : 'turns' }}
+          </span>
+        }
+      </div>
     </div>
   `,
   styles: `
     .bt-donut-slider {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
+      display: inline-block;
       width: var(--bt-donut-slider-size, 14rem);
       max-width: 100%;
       outline: none;
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    .bt-donut-slider__dial {
+      position: relative;
+      width: 100%;
     }
 
     .bt-donut-slider:focus-visible .bt-donut-slider__handle {
@@ -167,38 +171,48 @@ class AbsPipe implements PipeTransform {
       stroke-width: 2;
     }
 
+    // Center the readout over the SVG so the dial doubles as its own label.
+    // pointer-events: none keeps the text from intercepting the drag. The
+    // readout sits inside the donut hole even on small dials because the
+    // font sizes scale with the configured dial size.
     .bt-donut-slider__readout {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 0.125rem;
       line-height: 1.1;
       text-align: center;
+      pointer-events: none;
+      // Keep the readout inside the donut hole — back off from the ring.
+      padding: 22%;
     }
 
     .bt-donut-slider__label {
-      font-size: 0.75rem;
+      font-size: calc(var(--bt-donut-slider-size, 14rem) * 0.06);
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--bt-text-muted);
     }
 
     .bt-donut-slider__value {
-      font-size: 1.75rem;
+      font-size: calc(var(--bt-donut-slider-size, 14rem) * 0.16);
       font-weight: 600;
       color: var(--bt-text-strong);
       font-variant-numeric: tabular-nums;
     }
 
     .bt-donut-slider__unit {
-      margin-inline-start: 0.25rem;
-      font-size: 1rem;
+      margin-inline-start: 0.15em;
+      font-size: 0.55em;
       font-weight: 500;
       color: var(--bt-text-muted);
     }
 
     .bt-donut-slider__turns {
-      font-size: 0.75rem;
+      font-size: calc(var(--bt-donut-slider-size, 14rem) * 0.055);
       color: var(--bt-text-muted);
     }
   `,
