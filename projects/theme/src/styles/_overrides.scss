@@ -93,9 +93,9 @@
   // strong-text white, matching `<bt-bar-loader />`. Loading is a transient
   // state, not a brand surface, so a single monochrome reads cleanest
   // against the dark page.
-  --mdc-linear-progress-active-indicator-color: var(--bt-text-strong);
-  --mdc-linear-progress-track-color: var(--bt-surface-2);
-  --mdc-circular-progress-active-indicator-color: var(--bt-text-strong);
+  --mat-progress-bar-active-indicator-color: var(--bt-text-strong);
+  --mat-progress-bar-track-color: var(--bt-surface-2);
+  --mat-progress-spinner-active-indicator-color: var(--bt-text-strong);
 
   // --- Divider ------------------------------------------------------------
   --mat-divider-color: var(--bt-outline);
