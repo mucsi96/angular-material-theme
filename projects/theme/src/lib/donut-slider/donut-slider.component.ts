@@ -4,8 +4,6 @@ import {
   Component,
   DestroyRef,
   HostListener,
-  Pipe,
-  PipeTransform,
   ViewEncapsulation,
   computed,
   inject,
@@ -14,15 +12,6 @@ import {
   output,
   signal,
 } from '@angular/core';
-
-// Tiny pure pipe used inline for the |abs filter — kept private to this file
-// so we don't widen the public API for a single template helper.
-@Pipe({ name: 'btAbs', standalone: true })
-class AbsPipe implements PipeTransform {
-  transform(value: number): number {
-    return Math.abs(value);
-  }
-}
 
 /**
  * A mobile-first donut-style circular range slider for numeric input.
@@ -53,7 +42,6 @@ class AbsPipe implements PipeTransform {
   selector: 'bt-donut-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [AbsPipe],
   host: {
     class: 'bt-donut-slider',
     role: 'slider',
@@ -105,12 +93,6 @@ class AbsPipe implements PipeTransform {
           {{ displayValue() }}<!--
           -->@if (unit(); as u) {<span class="bt-donut-slider__unit">{{ u }}</span>}
         </span>
-        @if (turnCount() !== 0) {
-          <span class="bt-donut-slider__turns">
-            {{ turnCount() | btAbs }}
-            {{ turnCount() === 1 || turnCount() === -1 ? 'turn' : 'turns' }}
-          </span>
-        }
       </div>
     </div>
   `,
@@ -210,11 +192,6 @@ class AbsPipe implements PipeTransform {
       font-weight: 500;
       color: var(--bt-text-muted);
     }
-
-    .bt-donut-slider__turns {
-      font-size: calc(var(--bt-donut-slider-size, 14rem) * 0.055);
-      color: var(--bt-text-muted);
-    }
   `,
 })
 export class DonutSliderComponent {
@@ -254,10 +231,6 @@ export class DonutSliderComponent {
     const fraction = mod(this.value() / this.valuePerTurn(), 1);
     return fraction * 360;
   });
-
-  protected readonly turnCount = computed(() =>
-    Math.trunc(this.value() / this.valuePerTurn()),
-  );
 
   protected readonly arcPath = computed(() => {
     const cx = this.center();
