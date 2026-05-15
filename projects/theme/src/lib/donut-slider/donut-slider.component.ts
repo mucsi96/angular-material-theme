@@ -199,7 +199,7 @@ export class DonutSliderComponent {
   readonly valuePerTurn = input<number>(100);
   /** Step size for keyboard interaction and the snap-to grid. */
   readonly step = input<number>(1);
-  /** Optional lower clamp. Omit for unbounded downward rotation. */
+  /** Optional lower clamp. Omit (or set `0`) to prevent negative values. */
   readonly min = input<number | undefined>(undefined);
   /** Optional upper clamp. Omit for unbounded upward rotation. */
   readonly max = input<number | undefined>(undefined);
