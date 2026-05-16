@@ -38,9 +38,24 @@
   --mdc-text-button-container-shape: 0.5rem;
   --mdc-protected-button-container-shape: 0.5rem;
 
-  // FAB
-  --mdc-fab-container-color: var(--bt-primary);
+  // FAB — paint the primary brand blue, swap to primary-hover on hover by
+  // riding the state layer at full opacity (instead of the M3 default 8%
+  // tint of on-primary-container).
+  --mat-fab-container-color: var(--bt-primary);
   --mat-fab-foreground-color: var(--bt-text-on-brand);
+  --mat-fab-state-layer-color: var(--bt-primary-hover);
+  --mat-fab-hover-state-layer-opacity: 1;
+  --mat-fab-ripple-color: hsla(0, 0%, 0%, 0.12);
+  --mat-fab-small-container-color: var(--bt-primary);
+  --mat-fab-small-foreground-color: var(--bt-text-on-brand);
+  --mat-fab-small-state-layer-color: var(--bt-primary-hover);
+  --mat-fab-small-hover-state-layer-opacity: 1;
+  --mat-fab-small-ripple-color: hsla(0, 0%, 0%, 0.12);
+
+  // Filled button: same hover treatment as the FAB so primary actions feel
+  // identical regardless of shape.
+  --mat-button-filled-state-layer-color: var(--bt-primary-hover);
+  --mat-button-filled-hover-state-layer-opacity: 1;
 
   // Icon button: keep the subtle hover-bg from ui-elements
   --mat-icon-button-state-layer-color: var(--bt-text-default);
@@ -78,24 +93,23 @@
   --mat-form-field-outlined-error-focus-label-text-color: var(--bt-error);
   --mat-form-field-outlined-error-caret-color: var(--bt-error);
 
-  // Filled appearance
+  // Filled appearance — drop the bottom underline (active indicator) in favor
+  // of a full container border; see the `.mdc-text-field--filled` rule below
+  // for the border itself and the focus ring (Material 21 has no token for a
+  // four-sided border on the filled appearance).
   --mat-form-field-filled-container-color: var(--bt-surface-2);
   --mat-form-field-filled-disabled-container-color: var(--bt-surface-2);
-  --mat-form-field-filled-active-indicator-color: var(--bt-outline);
-  --mat-form-field-filled-hover-active-indicator-color: var(--bt-text-muted);
-  --mat-form-field-filled-focus-active-indicator-color: var(--bt-link);
-  --mat-form-field-filled-disabled-active-indicator-color: var(--bt-outline);
+  --mat-form-field-filled-active-indicator-height: 0;
+  --mat-form-field-filled-focus-active-indicator-height: 0;
   --mat-form-field-filled-label-text-color: var(--bt-text-muted);
   --mat-form-field-filled-hover-label-text-color: var(--bt-text-strong);
-  --mat-form-field-filled-focus-label-text-color: var(--bt-link);
+  --mat-form-field-filled-focus-label-text-color: var(--bt-text-strong);
   --mat-form-field-filled-disabled-label-text-color: var(--bt-text-muted);
   --mat-form-field-filled-input-text-color: var(--bt-text-strong);
   --mat-form-field-filled-input-text-placeholder-color: var(--bt-text-muted);
   --mat-form-field-filled-disabled-input-text-color: var(--bt-text-muted);
-  --mat-form-field-filled-caret-color: var(--bt-link);
-  --mat-form-field-filled-error-active-indicator-color: var(--bt-error);
-  --mat-form-field-filled-error-hover-active-indicator-color: var(--bt-error);
-  --mat-form-field-filled-error-focus-active-indicator-color: var(--bt-error);
+  --mat-form-field-filled-caret-color: var(--bt-text-strong);
+  --mat-form-field-hover-state-layer-opacity: 0;
   --mat-form-field-filled-error-label-text-color: var(--bt-error);
   --mat-form-field-filled-error-hover-label-text-color: var(--bt-error);
   --mat-form-field-filled-error-focus-label-text-color: var(--bt-error);
@@ -296,6 +310,25 @@
       color: var(--bt-error-on);
       border-color: var(--bt-error-soft);
     }
+  }
+
+  // Filled form fields: the M3 default draws a single bottom underline.
+  // We turn that off via tokens above and paint a four-sided border instead
+  // (matching the ui-elements input look). Focus thickens the border to blue
+  // and adds a 1px box-shadow to read as a 2px ring without shifting layout.
+  // Selects are excluded — the trigger has its own focus affordance.
+  .mdc-text-field--filled {
+    border: 1px solid var(--bt-outline);
+  }
+
+  mat-form-field:not(.mat-mdc-form-field-type-mat-select)
+    .mdc-text-field--filled.mdc-text-field--focused {
+    border-color: var(--bt-link);
+    box-shadow: var(--bt-link) 0 0 0 1px;
+  }
+
+  mat-form-field.mat-form-field-invalid .mdc-text-field--filled {
+    border-color: var(--bt-error);
   }
 
   // Material table tweaks not expressible via tokens: uppercase headers,
