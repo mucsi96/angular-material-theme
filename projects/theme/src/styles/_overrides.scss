@@ -125,6 +125,21 @@
   // --- Divider ------------------------------------------------------------
   --mat-divider-color: var(--bt-outline);
 
+  // --- Slide toggle ------------------------------------------------------
+  // Square off the M3 switch so the track and handle match the project's
+  // 0.5rem-corner aesthetic instead of the default pill/circle.
+  --mat-slide-toggle-track-shape: 0.5rem;
+  --mat-slide-toggle-handle-shape: 0.25rem;
+  --mat-slide-toggle-selected-handle-color: var(--bt-text-on-brand);
+  --mat-slide-toggle-selected-hover-handle-color: var(--bt-text-on-brand);
+  --mat-slide-toggle-selected-focus-handle-color: var(--bt-text-on-brand);
+  --mat-slide-toggle-selected-pressed-handle-color: var(--bt-text-on-brand);
+  --mat-slide-toggle-unselected-handle-color: var(--bt-text-strong);
+  --mat-slide-toggle-selected-track-color: var(--bt-primary);
+  --mat-slide-toggle-selected-hover-track-color: var(--bt-primary);
+  --mat-slide-toggle-selected-focus-track-color: var(--bt-primary);
+  --mat-slide-toggle-selected-pressed-track-color: var(--bt-primary);
+
   // -----------------------------------------------------------------------
   // Selectors below target the CDK overlay layer (snackbar) and the rendered
   // mat-table — there's no system-token alternative for these.
