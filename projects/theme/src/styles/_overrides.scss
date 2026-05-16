@@ -47,15 +47,76 @@
   --mat-icon-button-hover-state-layer-opacity: 0.08;
 
   // --- Form fields --------------------------------------------------------
-  --mdc-outlined-text-field-container-shape: 0.5rem;
-  --mdc-filled-text-field-container-shape: 0.5rem;
-  --mdc-outlined-text-field-outline-color: var(--bt-outline);
-  --mdc-outlined-text-field-hover-outline-color: var(--bt-text-muted);
-  --mdc-outlined-text-field-focus-outline-color: var(--bt-link);
-  --mdc-outlined-text-field-input-text-color: var(--bt-text-strong);
-  --mdc-outlined-text-field-label-text-color: var(--bt-text-muted);
-  --mdc-outlined-text-field-focus-label-text-color: var(--bt-link);
-  --mdc-filled-text-field-container-color: var(--bt-surface-2);
+  // Material 21 reads the `--mat-form-field-*` tokens; the legacy
+  // `--mdc-*-text-field-*` names are no longer wired up. Map every color
+  // token for both the outlined and filled appearances onto the bt-* palette
+  // so all input states (resting, hover, focus, error, disabled) match the
+  // ui-elements look.
+
+  // Shape (shared between appearances)
+  --mat-form-field-outlined-container-shape: 0.5rem;
+  --mat-form-field-filled-container-shape: 0.5rem;
+
+  // Outlined appearance
+  --mat-form-field-outlined-outline-color: var(--bt-outline);
+  --mat-form-field-outlined-hover-outline-color: var(--bt-text-muted);
+  --mat-form-field-outlined-focus-outline-color: var(--bt-link);
+  --mat-form-field-outlined-disabled-outline-color: var(--bt-outline);
+  --mat-form-field-outlined-label-text-color: var(--bt-text-muted);
+  --mat-form-field-outlined-hover-label-text-color: var(--bt-text-strong);
+  --mat-form-field-outlined-focus-label-text-color: var(--bt-link);
+  --mat-form-field-outlined-disabled-label-text-color: var(--bt-text-muted);
+  --mat-form-field-outlined-input-text-color: var(--bt-text-strong);
+  --mat-form-field-outlined-input-text-placeholder-color: var(--bt-text-muted);
+  --mat-form-field-outlined-disabled-input-text-color: var(--bt-text-muted);
+  --mat-form-field-outlined-caret-color: var(--bt-link);
+  --mat-form-field-outlined-error-outline-color: var(--bt-error);
+  --mat-form-field-outlined-error-hover-outline-color: var(--bt-error);
+  --mat-form-field-outlined-error-focus-outline-color: var(--bt-error);
+  --mat-form-field-outlined-error-label-text-color: var(--bt-error);
+  --mat-form-field-outlined-error-hover-label-text-color: var(--bt-error);
+  --mat-form-field-outlined-error-focus-label-text-color: var(--bt-error);
+  --mat-form-field-outlined-error-caret-color: var(--bt-error);
+
+  // Filled appearance
+  --mat-form-field-filled-container-color: var(--bt-surface-2);
+  --mat-form-field-filled-disabled-container-color: var(--bt-surface-2);
+  --mat-form-field-filled-active-indicator-color: var(--bt-outline);
+  --mat-form-field-filled-hover-active-indicator-color: var(--bt-text-muted);
+  --mat-form-field-filled-focus-active-indicator-color: var(--bt-link);
+  --mat-form-field-filled-disabled-active-indicator-color: var(--bt-outline);
+  --mat-form-field-filled-label-text-color: var(--bt-text-muted);
+  --mat-form-field-filled-hover-label-text-color: var(--bt-text-strong);
+  --mat-form-field-filled-focus-label-text-color: var(--bt-link);
+  --mat-form-field-filled-disabled-label-text-color: var(--bt-text-muted);
+  --mat-form-field-filled-input-text-color: var(--bt-text-strong);
+  --mat-form-field-filled-input-text-placeholder-color: var(--bt-text-muted);
+  --mat-form-field-filled-disabled-input-text-color: var(--bt-text-muted);
+  --mat-form-field-filled-caret-color: var(--bt-link);
+  --mat-form-field-filled-error-active-indicator-color: var(--bt-error);
+  --mat-form-field-filled-error-hover-active-indicator-color: var(--bt-error);
+  --mat-form-field-filled-error-focus-active-indicator-color: var(--bt-error);
+  --mat-form-field-filled-error-label-text-color: var(--bt-error);
+  --mat-form-field-filled-error-hover-label-text-color: var(--bt-error);
+  --mat-form-field-filled-error-focus-label-text-color: var(--bt-error);
+  --mat-form-field-filled-error-caret-color: var(--bt-error);
+
+  // Shared form-field surface (icons, error text, state layer)
+  --mat-form-field-leading-icon-color: var(--bt-text-muted);
+  --mat-form-field-trailing-icon-color: var(--bt-text-muted);
+  --mat-form-field-disabled-leading-icon-color: var(--bt-text-muted);
+  --mat-form-field-disabled-trailing-icon-color: var(--bt-text-muted);
+  --mat-form-field-error-text-color: var(--bt-error);
+  --mat-form-field-error-trailing-icon-color: var(--bt-error);
+  --mat-form-field-error-hover-trailing-icon-color: var(--bt-error);
+  --mat-form-field-error-focus-trailing-icon-color: var(--bt-error);
+  --mat-form-field-disabled-input-text-placeholder-color: var(--bt-text-muted);
+  --mat-form-field-enabled-select-arrow-color: var(--bt-text-muted);
+  --mat-form-field-focus-select-arrow-color: var(--bt-link);
+  --mat-form-field-disabled-select-arrow-color: var(--bt-text-muted);
+  --mat-form-field-select-option-text-color: var(--bt-text-default);
+  --mat-form-field-select-disabled-option-text-color: var(--bt-text-muted);
+  --mat-form-field-state-layer-color: var(--bt-text-default);
 
   // --- Menu / select / autocomplete --------------------------------------
   --mat-menu-container-color: var(--bt-surface-2);
