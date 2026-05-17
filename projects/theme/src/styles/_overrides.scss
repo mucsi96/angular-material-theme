@@ -5,32 +5,10 @@
 // they survive Material upgrades.
 
 @mixin apply() {
-  // --- Typography reset ---------------------------------------------------
-  // Material's `.mat-typography` wrapper applies its own font/letter-spacing
-  // and heading scale. Unset those so headings inherit the ui-elements look
-  // (system font, app text color) rather than M3's type ramp.
-  .mat-typography {
-    font: unset;
-    letter-spacing: unset;
-    font-family: system-ui;
-    color: var(--mat-app-text-color);
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: var(--mat-sys-on-primary);
-      font-size: unset;
-      font-weight: unset;
-      margin: unset;
-    }
-  }
-
   // --- Buttons ------------------------------------------------------------
   --mat-button-filled-container-shape: 0.5rem;
   --mat-button-outlined-container-shape: 0.5rem;
+  --mat-button-outlined-outline-color: transparent;
   --mat-button-text-container-shape: 0.5rem;
   --mat-button-protected-container-shape: 0.5rem;
   --mdc-filled-button-container-shape: 0.5rem;
