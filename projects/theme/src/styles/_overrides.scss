@@ -290,13 +290,17 @@
     }
   }
 
-  // Filled form fields: the M3 default draws a single bottom underline.
-  // We turn that off via tokens above and paint a four-sided border instead
-  // (matching the ui-elements input look). Focus thickens the border to blue
-  // and adds a 1px box-shadow to read as a 2px ring without shifting layout.
-  // Selects are excluded — the trigger has its own focus affordance.
+  // Filled form fields: the M3 default draws a single bottom underline and
+  // rounds only the top corners. We turn the underline off via tokens above
+  // and paint a four-sided border instead (matching the ui-elements input
+  // look), then round all four corners so the shape token applies uniformly.
+  // Focus thickens the border to blue and adds a 1px box-shadow to read as a
+  // 2px ring without shifting layout. Selects are excluded — the trigger has
+  // its own focus affordance.
   .mdc-text-field--filled {
     border: 1px solid var(--bt-outline);
+    border-bottom-left-radius: var(--mat-form-field-filled-container-shape);
+    border-bottom-right-radius: var(--mat-form-field-filled-container-shape);
   }
 
   mat-form-field:not(.mat-mdc-form-field-type-mat-select)
@@ -307,16 +311,6 @@
 
   mat-form-field.mat-form-field-invalid .mdc-text-field--filled {
     border-color: var(--bt-error);
-  }
-
-  // Material 21 dropped the `floatLabel: 'never'` option, but we still want
-  // the label to behave like a placeholder (visible when empty, gone on
-  // focus / has-value) rather than rising into a floating chip. Suppress the
-  // raised state so the label never animates upward — Material has already
-  // toggled the input's own `::placeholder` visibility, so hiding the
-  // floated label leaves the field looking like a plain input.
-  .mdc-text-field .mdc-floating-label--float-above {
-    display: none;
   }
 
   // Material table tweaks not expressible via tokens: uppercase headers,
