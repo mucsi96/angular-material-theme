@@ -309,6 +309,16 @@
     border-color: var(--bt-error);
   }
 
+  // Material 21 dropped the `floatLabel: 'never'` option, but we still want
+  // the label to behave like a placeholder (visible when empty, gone on
+  // focus / has-value) rather than rising into a floating chip. Suppress the
+  // raised state so the label never animates upward — Material has already
+  // toggled the input's own `::placeholder` visibility, so hiding the
+  // floated label leaves the field looking like a plain input.
+  .mdc-text-field .mdc-floating-label--float-above {
+    display: none;
+  }
+
   // Material table tweaks not expressible via tokens: uppercase headers,
   // generous horizontal padding, and the selected-row tint.
   .mat-mdc-header-cell {
