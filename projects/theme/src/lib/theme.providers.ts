@@ -9,7 +9,7 @@ import {
 } from '@angular/material/button';
 
 const FORM_FIELD_DEFAULTS: MatFormFieldDefaultOptions = {
-  appearance: 'outline',
+  appearance: 'fill',
   subscriptSizing: 'dynamic',
   hideRequiredMarker: false,
 };
@@ -19,8 +19,9 @@ const BUTTON_DEFAULTS: MatButtonConfig = {
 };
 
 /**
- * Opinionated defaults that complement the theme: outlined form fields,
- * and disabled-but-focusable buttons (better keyboard accessibility).
+ * Opinionated defaults that complement the theme: filled form fields with
+ * non-floating labels (placeholder-style), and disabled-but-focusable
+ * buttons (better keyboard accessibility).
  *
  * Add to `ApplicationConfig.providers`:
  *
