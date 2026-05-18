@@ -12,6 +12,7 @@ const FORM_FIELD_DEFAULTS: MatFormFieldDefaultOptions = {
   appearance: 'fill',
   subscriptSizing: 'dynamic',
   hideRequiredMarker: false,
+  floatLabel: 'always',
 };
 
 const BUTTON_DEFAULTS: MatButtonConfig = {
@@ -20,8 +21,8 @@ const BUTTON_DEFAULTS: MatButtonConfig = {
 
 /**
  * Opinionated defaults that complement the theme: filled form fields with
- * non-floating labels (placeholder-style), and disabled-but-focusable
- * buttons (better keyboard accessibility).
+ * always-floating labels (visible above the input at all times), and
+ * disabled-but-focusable buttons (better keyboard accessibility).
  *
  * Add to `ApplicationConfig.providers`:
  *
