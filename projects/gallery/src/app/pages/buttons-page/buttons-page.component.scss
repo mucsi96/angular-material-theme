@@ -7,3 +7,17 @@
     color: var(--bt-text-strong);
   }
 }
+
+// Demonstrates the "arbitrary color" path from the Colored buttons section —
+// set three vars, the theme wires container / hover / label automatically.
+.grade-correct {
+  --bt-button-bg: #28a745;
+  --bt-button-bg-hover: #208637;
+  --bt-button-fg: #fff;
+}
+
+.grade-incorrect {
+  --bt-button-bg: #dc3545;
+  --bt-button-bg-hover: #bb2d3b;
+  --bt-button-fg: #fff;
+}

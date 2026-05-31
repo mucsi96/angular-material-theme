@@ -31,13 +31,48 @@
   --mat-fab-small-ripple-color: hsla(0, 0%, 0%, 0.12);
 
   // Filled button: same hover treatment as the FAB so primary actions feel
-  // identical regardless of shape.
-  --mat-button-filled-state-layer-color: var(--bt-primary-hover);
+  // identical regardless of shape. Container / hover / label colors all route
+  // through `--bt-button-bg{,-hover}` / `--bt-button-fg` so a consumer can
+  // recolor a button with one CSS variable per state and have the hover layer
+  // follow along — no more "any custom-colored button turns blue on hover".
+  --mat-button-filled-container-color: var(--bt-button-bg, var(--bt-primary));
+  --mat-button-filled-label-text-color: var(--bt-button-fg, var(--bt-text-on-brand));
+  --mat-button-filled-state-layer-color: var(--bt-button-bg-hover, var(--bt-primary-hover));
   --mat-button-filled-hover-state-layer-opacity: 1;
 
   // Icon button: keep the subtle hover-bg from ui-elements
   --mat-icon-button-state-layer-color: var(--bt-text-default);
   --mat-icon-button-hover-state-layer-opacity: 0.08;
+
+  // Semantic tinted filled-button variants. Apply to any `mat-flat-button`
+  // (or `mat-fab` / `mat-mini-fab`) via class — the container, hover layer
+  // and label text all switch together, so hover stays in the same hue.
+  .bt-button-success {
+    --bt-button-bg: var(--bt-success);
+    --bt-button-bg-hover: var(--bt-success-hover);
+    --bt-button-fg: var(--bt-text-on-brand);
+    --mat-fab-container-color: var(--bt-success);
+    --mat-fab-state-layer-color: var(--bt-success-hover);
+    --mat-fab-foreground-color: var(--bt-text-on-brand);
+  }
+
+  .bt-button-warn {
+    --bt-button-bg: var(--bt-warn);
+    --bt-button-bg-hover: var(--bt-warn-hover);
+    --bt-button-fg: var(--bt-text-on-brand);
+    --mat-fab-container-color: var(--bt-warn);
+    --mat-fab-state-layer-color: var(--bt-warn-hover);
+    --mat-fab-foreground-color: var(--bt-text-on-brand);
+  }
+
+  .bt-button-danger {
+    --bt-button-bg: var(--bt-error);
+    --bt-button-bg-hover: var(--bt-error-hover);
+    --bt-button-fg: var(--bt-text-on-brand);
+    --mat-fab-container-color: var(--bt-error);
+    --mat-fab-state-layer-color: var(--bt-error-hover);
+    --mat-fab-foreground-color: var(--bt-text-on-brand);
+  }
 
   // --- Form fields --------------------------------------------------------
   // Material 21 reads the `--mat-form-field-*` tokens; the legacy
