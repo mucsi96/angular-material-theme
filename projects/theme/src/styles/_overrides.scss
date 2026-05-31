@@ -30,14 +30,32 @@
   --mat-fab-small-hover-state-layer-opacity: 1;
   --mat-fab-small-ripple-color: hsla(0, 0%, 0%, 0.12);
 
-  // Filled button: same hover treatment as the FAB so primary actions feel
-  // identical regardless of shape.
-  --mat-button-filled-state-layer-color: var(--bt-primary-hover);
-  --mat-button-filled-hover-state-layer-opacity: 1;
-
   // Icon button: keep the subtle hover-bg from ui-elements
   --mat-icon-button-state-layer-color: var(--bt-text-default);
   --mat-icon-button-hover-state-layer-opacity: 0.08;
+
+  // Filled button: `--bt-button-bg` is the single knob a consumer sets to
+  // recolor the button (defaults to the brand primary via the var() fallback).
+  // The hover state-layer darkens that color in OKLCH via relative-color
+  // syntax, and the label text auto-picks black or white by inspecting the
+  // same color's OKLab lightness — so a custom-colored button keeps its hue
+  // on hover and stays legible without any extra CSS.
+  //
+  // The derivation lives on the button selector (not on `html`) because
+  // `var()` in a custom property's value is substituted at the declaration
+  // site: scoping it to the button makes `--bt-button-bg` resolve where the
+  // consumer's override (e.g. `.grade-correct { --bt-button-bg: #28a745 }`)
+  // is in scope.
+  .mat-mdc-unelevated-button {
+    --mat-button-filled-container-color: var(--bt-button-bg, var(--bt-primary));
+    --mat-button-filled-state-layer-color: oklch(
+      from var(--bt-button-bg, var(--bt-primary)) calc(l - 0.07) c h
+    );
+    --mat-button-filled-label-text-color: oklch(
+      from var(--bt-button-bg, var(--bt-primary)) calc((0.62 - l) * infinity) 0 0
+    );
+    --mat-button-filled-hover-state-layer-opacity: 1;
+  }
 
   // --- Form fields --------------------------------------------------------
   // Material 21 reads the `--mat-form-field-*` tokens; the legacy

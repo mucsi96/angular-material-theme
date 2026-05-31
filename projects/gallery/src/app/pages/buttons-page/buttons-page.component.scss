@@ -7,3 +7,9 @@
     color: var(--bt-text-strong);
   }
 }
+
+// Demonstrates the Colored-buttons section — one variable per button, hover
+// and label text are derived in the theme via OKLCH relative-color syntax.
+.grade-correct   { --bt-button-bg: #28a745; }
+.grade-incorrect { --bt-button-bg: #dc3545; }
+.grade-warn      { --bt-button-bg: var(--bt-warn); }
