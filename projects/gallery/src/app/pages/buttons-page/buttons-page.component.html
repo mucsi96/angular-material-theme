@@ -27,31 +27,13 @@
 
 <bt-gallery-demo-section
   title="Colored buttons"
-  description="Recolor a filled button by overriding three CSS variables: --bt-button-bg, --bt-button-bg-hover and --bt-button-fg. The theme ships .bt-button-success / .bt-button-warn / .bt-button-danger as ready-made variants, and the hover state layer follows the container color — no &quot;everything turns blue on hover&quot;."
-  code='<!-- Built-in semantic variants -->
-<button mat-flat-button class="bt-button-success">
-  <mat-icon class="material-symbols-rounded">check</mat-icon>
-  Correct
-</button>
-<button mat-flat-button class="bt-button-danger">
-  <mat-icon class="material-symbols-rounded">close</mat-icon>
-  Incorrect
-</button>
-<button mat-flat-button class="bt-button-warn">Warn</button>
-
-<!-- Custom colors via CSS variables (no !important, hover works) -->
-<style>
-  .grade-correct {
-    --bt-button-bg: #28a745;
-    --bt-button-bg-hover: #208637;
-    --bt-button-fg: #fff;
-  }
-  .grade-incorrect {
-    --bt-button-bg: #dc3545;
-    --bt-button-bg-hover: #bb2d3b;
-    --bt-button-fg: #fff;
-  }
+  description="Set one CSS variable — --bt-button-bg — on any filled button and the theme derives the rest. The hover state-layer darkens the same color in OKLCH via relative-color syntax, and the label text auto-picks black or white from the container's OKLab lightness, so the button stays in its own hue on hover and stays legible."
+  code='<style>
+  .grade-correct   { --bt-button-bg: #28a745; }
+  .grade-incorrect { --bt-button-bg: #dc3545; }
+  .grade-warn      { --bt-button-bg: var(--bt-warn); }
 </style>
+
 <button mat-flat-button class="grade-correct">
   <mat-icon class="material-symbols-rounded">check</mat-icon>
   Correct
@@ -59,17 +41,9 @@
 <button mat-flat-button class="grade-incorrect">
   <mat-icon class="material-symbols-rounded">close</mat-icon>
   Incorrect
-</button>'
+</button>
+<button mat-flat-button class="grade-warn">Review</button>'
 >
-  <button mat-flat-button class="bt-button-success">
-    <mat-icon class="material-symbols-rounded">check</mat-icon>
-    Correct
-  </button>
-  <button mat-flat-button class="bt-button-danger">
-    <mat-icon class="material-symbols-rounded">close</mat-icon>
-    Incorrect
-  </button>
-  <button mat-flat-button class="bt-button-warn">Warn</button>
   <button mat-flat-button class="grade-correct">
     <mat-icon class="material-symbols-rounded">check</mat-icon>
     Correct
@@ -78,6 +52,7 @@
     <mat-icon class="material-symbols-rounded">close</mat-icon>
     Incorrect
   </button>
+  <button mat-flat-button class="grade-warn">Review</button>
 </bt-gallery-demo-section>
 
 <bt-gallery-demo-section

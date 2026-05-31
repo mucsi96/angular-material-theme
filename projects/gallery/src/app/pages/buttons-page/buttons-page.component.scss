@@ -8,16 +8,8 @@
   }
 }
 
-// Demonstrates the "arbitrary color" path from the Colored buttons section —
-// set three vars, the theme wires container / hover / label automatically.
-.grade-correct {
-  --bt-button-bg: #28a745;
-  --bt-button-bg-hover: #208637;
-  --bt-button-fg: #fff;
-}
-
-.grade-incorrect {
-  --bt-button-bg: #dc3545;
-  --bt-button-bg-hover: #bb2d3b;
-  --bt-button-fg: #fff;
-}
+// Demonstrates the Colored-buttons section — one variable per button, hover
+// and label text are derived in the theme via OKLCH relative-color syntax.
+.grade-correct   { --bt-button-bg: #28a745; }
+.grade-incorrect { --bt-button-bg: #dc3545; }
+.grade-warn      { --bt-button-bg: var(--bt-warn); }
