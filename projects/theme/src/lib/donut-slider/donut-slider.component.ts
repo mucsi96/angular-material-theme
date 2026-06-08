@@ -9,7 +9,6 @@ import {
   inject,
   input,
   model,
-  output,
   signal,
 } from '@angular/core';
 
@@ -216,9 +215,6 @@ export class DonutSliderComponent {
   /** Disables drag and keyboard input. */
   readonly disabled = input<boolean>(false);
 
-  /** Emitted on every committed value change. */
-  readonly valueChange = output<number>();
-
   // --- Geometry ------------------------------------------------------------
   protected readonly stroke = computed(() => Math.round(this.size() * 0.14));
   protected readonly center = computed(() => this.size() / 2);
@@ -383,7 +379,6 @@ export class DonutSliderComponent {
     const clamped = this.clamp(stepped);
     if (clamped === this.value()) return;
     this.value.set(clamped);
-    this.valueChange.emit(clamped);
   }
 
   private snapToStep(value: number): number {
