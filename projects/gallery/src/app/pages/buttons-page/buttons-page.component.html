@@ -56,6 +56,27 @@
 </bt-gallery-demo-section>
 
 <bt-gallery-demo-section
+  title="Semantic button colors"
+  description="Use bt-color with primary, success, warn, or error on filled, raised, FAB, and mini-FAB buttons. The theme owns the background, contrasting label, and same-hue hover for every variant. No component CSS or extra directive imports are needed."
+  code='<button mat-flat-button bt-color="success">Mark as known</button>
+<button mat-raised-button bt-color="error">Incorrect</button>
+<button mat-fab extended bt-color="warn">Delete audio</button>
+<button mat-mini-fab bt-color="error" aria-label="Remove selection">
+  <mat-icon>close</mat-icon>
+</button>'
+>
+  @for (tone of buttonTones; track tone) {
+    <button mat-flat-button [attr.bt-color]="tone">Filled {{ tone }}</button>
+    <button mat-raised-button [attr.bt-color]="tone">Raised {{ tone }}</button>
+    <button mat-fab extended [attr.bt-color]="tone">FAB {{ tone }}</button>
+    <button mat-mini-fab [attr.bt-color]="tone" [attr.aria-label]="'Mini FAB ' + tone">
+      <mat-icon class="material-symbols-rounded">check</mat-icon>
+    </button>
+    <button mat-flat-button [attr.bt-color]="tone" disabled>Disabled {{ tone }}</button>
+  }
+</bt-gallery-demo-section>
+
+<bt-gallery-demo-section
   title="Outlined buttons"
   description="Lower-emphasis actions that still need clear affordance."
   code='<button mat-stroked-button>Default</button>

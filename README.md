@@ -47,7 +47,22 @@ export const appConfig: ApplicationConfig = {
 
 ### From there
 
+- Set `bt-color="success"`, `"warn"`, `"error"`, or `"primary"` on filled,
+  raised, FAB, and mini-FAB buttons for coordinated container, label, and hover
+  colors without custom CSS. See [button colors](projects/theme/README.md#button-colors).
+
 - Use any `--bt-*` token from your own styles — `background-color: var(--bt-surface-1);`.
 - Drop in `<bt-bar-loader />` for page-level loading and `NotificationsService.success() / .error()` for toasts.
 - Use the `.bt-notification` / `.bt-notification--success` / `.bt-notification--error` classes for inline alerts.
 - Override any Material token in the same selector: `--mat-sys-tertiary: var(--bt-success);`.
+
+## Button regression tests
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+The tests start the gallery and verify semantic colors across solid button
+variants, custom colors, focus feedback, and disabled appearance. They also run
+in CI on pull requests.

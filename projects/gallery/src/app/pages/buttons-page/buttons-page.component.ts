@@ -24,6 +24,7 @@ import { DemoSectionComponent } from '../../components/demo-section/demo-section
   styleUrl: './buttons-page.component.scss',
 })
 export class ButtonsPageComponent {
+  protected readonly buttonTones = ['primary', 'success', 'warn', 'error'] as const;
   protected readonly lastAction = signal<string | undefined>(undefined);
 
   protected setAction(action: string): void {

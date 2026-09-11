@@ -87,6 +87,40 @@ You can also `@use` the palette module directly to read the raw HSL values:
 }
 ```
 
+### Button colors
+
+Use `bt-color="primary|success|warn|error"` on `mat-flat-button`,
+`mat-raised-button`, `mat-fab` (including extended FABs), or `mat-mini-fab`:
+
+```html
+<button mat-flat-button bt-color="success">Mark as known</button>
+<button mat-raised-button bt-color="error">Incorrect</button>
+<button mat-fab extended bt-color="warn">Delete audio</button>
+<button mat-mini-fab bt-color="error" aria-label="Remove selection">
+  <mat-icon>close</mat-icon>
+</button>
+```
+
+This is a CSS attribute API supplied by `bt.theme()`, so no directive import is
+required. For dynamic values use `[attr.bt-color]="tone"`. It applies to Material
+anchor buttons too. Unsupported values do not select a semantic color.
+
+All four solid variants default to primary and derive their hover shade and
+black/white label from the same background. Raised buttons retain their Material
+elevation. Material continues to own disabled, focus, and pressed state behavior.
+Text, outlined, icon, and menu buttons are outside this API.
+
+For an arbitrary color, set only `--bt-button-bg` on the button (without
+`bt-color`); it now works across all four solid variants. Existing filled-button
+overrides continue to work. Do not override Material container/label/state-layer
+tokens or paint `background`, `color`, or `:hover` separately: that disconnects
+the coordinated colors. Semantic colors use the global `--bt-success`,
+`--bt-warn`, and `--bt-error` palette tokens.
+
+```css
+.custom-action { --bt-button-bg: #28a745; }
+```
+
 ## What the mixin does
 
 1. Emits `--bt-*` design tokens on `:root` so your own styles can reuse them.
