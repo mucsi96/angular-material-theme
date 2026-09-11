@@ -56,7 +56,7 @@ export const appConfig: ApplicationConfig = {
 - Use the `.bt-notification` / `.bt-notification--success` / `.bt-notification--error` classes for inline alerts.
 - Override any Material token in the same selector: `--mat-sys-tertiary: var(--bt-success);`.
 
-## Button regression tests
+## End-to-end tests
 
 ```bash
 npx playwright install chromium
@@ -65,4 +65,8 @@ npm run test:e2e
 
 The tests start the gallery and verify semantic colors across solid button
 variants, custom colors, focus feedback, and disabled appearance. They also run
-in CI on pull requests.
+in the existing Build workflow before publishing or deploying. Visual review
+tests attach desktop and mobile screenshots of resting, hover, focus, and
+disabled states to the HTML report. Open it with `npx playwright show-report`;
+CI uploads it as the `e2e-report` artifact. These screenshots are review evidence,
+not pixel-diff baselines.

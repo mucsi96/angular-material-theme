@@ -50,6 +50,19 @@ jobs:
       - run: npm run build:theme
       # Use the GitHub Pages base href so deep links and asset paths resolve.
       - run: npm run build:gallery
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end tests
+        run: npm run test:e2e
+      - name: Upload end-to-end report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
       - name: Upload gallery artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
