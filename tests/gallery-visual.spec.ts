@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 [{ width: 1280, height: 900 }, { width: 390, height: 844 }].forEach(viewport => {
   test(`semantic actions visual review at ${viewport.width}px`, async ({ page }, testInfo) => {
     await page.setViewportSize(viewport);
-    await page.goto('/#/buttons');
+    await page.goto('./#/buttons');
     const region = page.getByRole('region', { name: 'Semantic button colors' });
     await expect(region).toBeVisible();
     await page.evaluate(() => document.fonts.ready);

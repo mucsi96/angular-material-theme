@@ -70,3 +70,15 @@ tests attach desktop and mobile screenshots of resting, hover, focus, and
 disabled states to the HTML report. Open it with `npx playwright show-report`;
 CI uploads it as the `e2e-report` artifact. These screenshots are review evidence,
 not pixel-diff baselines.
+
+The Build workflow compiles the library and gallery in parallel. The end-to-end
+job downloads `gallery-build` and tests those production files without rebuilding
+Angular. Deployment reuses that same artifact; npm publishing downloads
+`theme-package`. Both release jobs require successful end-to-end tests.
+
+To reproduce the artifact-based test run locally (requires Python 3):
+
+```bash
+npm run build:gallery
+PLAYWRIGHT_SERVE_BUILD=true npm run test:e2e
+```

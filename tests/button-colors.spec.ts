@@ -24,7 +24,7 @@ const colors = (button: Locator) => button.evaluate(element => {
 
 ['primary', 'success', 'warn', 'error'].forEach(tone => {
   test(`${tone} stays consistent across solid button variants on hover`, async ({ page }) => {
-    await page.goto('/#/buttons');
+    await page.goto('./#/buttons');
     const results = await ['Filled', 'Raised', 'FAB', 'Mini FAB'].reduce(async (previous, variant) => {
       const collected = await previous;
       const button = page.getByRole('button', { name: `${variant} ${tone}`, exact: true });
@@ -43,7 +43,7 @@ const colors = (button: Locator) => button.evaluate(element => {
 });
 
 test('custom colors and keyboard focus work on every solid variant', async ({ page }) => {
-  await page.goto('/#/buttons');
+  await page.goto('./#/buttons');
   await ['Filled', 'Raised', 'FAB', 'Mini FAB'].reduce(async (previous, variant) => {
     await previous;
     const button = page.getByRole('button', { name: `${variant} success`, exact: true });
@@ -64,7 +64,7 @@ test('custom colors and keyboard focus work on every solid variant', async ({ pa
 });
 
 test('disabled semantic buttons retain Material disabled appearance', async ({ page }) => {
-  await page.goto('/#/buttons');
+  await page.goto('./#/buttons');
   const button = page.getByRole('button', { name: 'Disabled success', exact: true });
   const defaultButton = page.getByRole('button', { name: 'Disabled', exact: true }).first();
   await expect(button).toBeDisabled();
