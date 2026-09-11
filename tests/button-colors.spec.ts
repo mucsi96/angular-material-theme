@@ -63,14 +63,23 @@ test('custom colors and keyboard focus work on every solid variant', async ({ pa
   }, Promise.resolve());
 });
 
-test('disabled semantic buttons retain Material disabled appearance', async ({ page }) => {
-  await page.goto('./#/buttons');
-  const button = page.getByRole('button', { name: 'Disabled success', exact: true });
-  const defaultButton = page.getByRole('button', { name: 'Disabled', exact: true }).first();
-  await expect(button).toBeDisabled();
-  expect(await colors(button)).toEqual(await colors(defaultButton));
-  await button.hover({ force: true });
-  const semanticHover = await colors(button);
-  await defaultButton.hover({ force: true });
-  expect(semanticHover).toEqual(await colors(defaultButton));
+['primary', 'success', 'warn', 'error'].forEach(tone => {
+  test(`disabled ${tone} buttons ignore hover and retain keyboard focus feedback`, async ({ page }) => {
+    await page.goto('./#/buttons');
+    const button = page.getByRole('button', { name: `Disabled ${tone}`, exact: true });
+    const defaultButton = page.getByRole('button', { name: 'Disabled', exact: true }).first();
+    await expect(button).toBeDisabled();
+    const resting = await colors(button);
+    expect(resting).toEqual(await colors(defaultButton));
+    expect(resting.opacity).toBe(0);
+
+    await button.hover({ force: true });
+    await expect.poll(() => colors(button)).toEqual(resting);
+    await defaultButton.hover({ force: true });
+    await expect.poll(async () => (await colors(defaultButton)).opacity).toBe(0);
+
+    await button.focus();
+    await expect(button).toBeFocused();
+    await expect.poll(async () => (await colors(button)).opacity).toBeGreaterThan(0);
+  });
 });
