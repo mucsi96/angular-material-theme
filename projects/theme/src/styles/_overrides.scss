@@ -46,6 +46,13 @@
         from var(--bt-button-bg, var(--bt-primary)) calc((0.62 - l) * infinity) 0 0
       );
       --#{$prefix}-hover-state-layer-opacity: 1;
+
+      // Disabled-interactive buttons remain focusable, but should not light up
+      // on hover. Cover both native and Material's interactive disabled state.
+      &[disabled],
+      &[aria-disabled='true'] {
+        --#{$prefix}-hover-state-layer-opacity: 0;
+      }
     }
   }
 
