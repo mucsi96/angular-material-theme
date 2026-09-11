@@ -9,6 +9,7 @@
     "build:theme": "ng build theme",
     "build:gallery": "ng build gallery --base-href \"/angular-material-theme/\"",
     "test": "ng test",
+    "test:e2e": "playwright test",
     "watch": "ng build gallery --watch --configuration development"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "@angular/build": "^22.0.0",
     "@angular/cli": "^22.0.0",
     "@angular/compiler-cli": "^22.0.0",
+    "@playwright/test": "^1.61.1",
     "ng-packagr": "^22.0.0",
     "typescript": "~6.0.0"
   }

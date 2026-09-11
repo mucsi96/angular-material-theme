@@ -47,7 +47,38 @@ export const appConfig: ApplicationConfig = {
 
 ### From there
 
+- Set `bt-color="success"`, `"warn"`, `"error"`, or `"primary"` on filled,
+  raised, FAB, and mini-FAB buttons for coordinated container, label, and hover
+  colors without custom CSS. See [button colors](projects/theme/README.md#button-colors).
+
 - Use any `--bt-*` token from your own styles — `background-color: var(--bt-surface-1);`.
 - Drop in `<bt-bar-loader />` for page-level loading and `NotificationsService.success() / .error()` for toasts.
 - Use the `.bt-notification` / `.bt-notification--success` / `.bt-notification--error` classes for inline alerts.
 - Override any Material token in the same selector: `--mat-sys-tertiary: var(--bt-success);`.
+
+## End-to-end tests
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+The tests start the gallery and verify semantic colors across solid button
+variants, custom colors, focus feedback, and disabled appearance. They also run
+in the existing Build workflow before publishing or deploying. Visual review
+tests attach desktop and mobile screenshots of resting, hover, focus, and
+disabled states to the HTML report. Open it with `npx playwright show-report`;
+CI uploads it as the `e2e-report` artifact. These screenshots are review evidence,
+not pixel-diff baselines.
+
+The Build workflow compiles the library and gallery in parallel. The end-to-end
+job downloads `gallery-build` and tests those production files without rebuilding
+Angular. Deployment reuses that same artifact; npm publishing downloads
+`theme-package`. Both release jobs require successful end-to-end tests.
+
+To reproduce the artifact-based test run locally (requires Python 3):
+
+```bash
+npm run build:gallery
+PLAYWRIGHT_SERVE_BUILD=true npm run test:e2e
+```
